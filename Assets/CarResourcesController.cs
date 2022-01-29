@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using System;
 using Sirenix.OdinInspector;
+using UnityEngine.UI;
+using DG.Tweening;
 public class CarResourcesController : MonoBehaviour
 {
 
@@ -15,7 +17,7 @@ public class CarResourcesController : MonoBehaviour
     private TextMeshProUGUI gasText;
 
     [SerializeField]
-    private Transform gasArrow;
+    private Image gasIndicator;
 
     //speed
     [SerializeField]
@@ -65,6 +67,7 @@ public class CarResourcesController : MonoBehaviour
         currentPassengers = 0;
         StartCoroutine(Countdown());
         updatePassengersUI();
+        updateGasIndicator();
 
     }
 
@@ -91,7 +94,12 @@ public class CarResourcesController : MonoBehaviour
             double percentageGas = (totalGasInSeconds - gasConsumed) / totalGasInSeconds;
             gasText.text = Mathf.Round((float)percentageGas * 100) + "%";
 
-
+            if (totalGasInSeconds - gasConsumed <= 0)
+            {
+                gasText.text = "0%";
+                gameOver();
+                yield break;
+            }
             //km
 
 
@@ -103,21 +111,42 @@ public class CarResourcesController : MonoBehaviour
     [Button]
     public void addPassenger()
     {
+        if (currentPassengers == passengerIcons.Length) return;
         ++currentPassengers;
         updatePassengersUI();
+        updateGasIndicator();
     }
     [Button]
     public void kickPassenger()
     {
+        if (currentPassengers == 0) return;
         --currentPassengers;
         updatePassengersUI();
+        updateGasIndicator();
     }
 
     void updatePassengersUI()
     {
         for (int i = 0; i < passengerIcons.Length; i++)
         {
-            passengerIcons[i].SetActive(i < currentPassengers);
+            passengerIcons[passengerIcons.Length - 1 - i].GetComponent<Image>().enabled = i < currentPassengers;
+        }
+    }
+
+    void updateGasIndicator()
+    {
+        if (currentPassengers <= 1)
+        {
+            gasIndicator.color = Color.green;
+
+        }
+        else if (currentPassengers <= 3)
+        {
+            gasIndicator.color = Color.yellow;
+        }
+        else
+        {
+            gasIndicator.color = Color.red;
         }
     }
 
