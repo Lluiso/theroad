@@ -21,6 +21,7 @@ public class TerrainGenerator : MonoBehaviour
 			var newSpawnPos = transform.position;
 			newSpawnPos.z = nextZ;
 			var newRoadPiece = Instantiate(_roadSectionPrefab, transform, true);
+			newRoadPiece.name = $"Road section {i}";
 			newRoadPiece.transform.position = newSpawnPos;
 		}
 	}
