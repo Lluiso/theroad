@@ -32,6 +32,9 @@ MonoBehaviour:
     - CharacterName: Kevin
       Message: Fuck you Steve
       MessageBoxType: 2
+    - CharacterName: Steve
+      Message: ikr
+      MessageBoxType: 1
     Conditions:
       PassengerCount: -1
       CharactersInCar:
