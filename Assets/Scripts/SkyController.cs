@@ -22,13 +22,10 @@ public class SkyController : MonoBehaviour
 	[SerializeField] private float _maxContrast;
 	[SerializeField] private float _minLightIntesity;
 	[SerializeField] private float _maxLightIntesity;
-
-	[Header("Testing")]
-	[Range(0f, 1f)]
-	[SerializeField]
-	private float _progressToGoal;
-
+	[SerializeField] private GameSettings _gameSettings;
 	[SerializeField] private bool _updateInEditMode;
+	private float progressOverride => _gameSettings.ForceSkyLightProgress;
+	private float progressToFerry = 0f;
 
 	void Update()
 	{
@@ -43,6 +40,7 @@ public class SkyController : MonoBehaviour
 
 	void DebugUpdateLights()
 	{
+		progressToFerry = progressOverride;
 		SetLightSettings();
 		SetSunProgress();
 		SetMoonProgress();
@@ -50,7 +48,7 @@ public class SkyController : MonoBehaviour
 
 	void SetLightSettings()
 	{
-		bool isDay = _progressToGoal < 0.5f;
+		bool isDay = progressToFerry < 0.5f;
 		RenderSettings.skybox = isDay ? _sunlightMaterial : _moonlightMaterial;
 		RenderSettings.sun = isDay ? _sunlightDirectional : _moonlightDirectional;
 		// _sunlightDirectional.enabled = isDay;
@@ -59,7 +57,7 @@ public class SkyController : MonoBehaviour
 
 	void SetSunProgress()
 	{
-		var sunsetProgress = _progressToGoal / 0.5f;
+		var sunsetProgress = progressToFerry / 0.5f;
 		var sunRotation =
 			Quaternion.Lerp(_sunLightStartRotation.rotation, _sunlightEndRotation.rotation, sunsetProgress);
 		_sun.rotation = sunRotation;
@@ -67,7 +65,7 @@ public class SkyController : MonoBehaviour
 
 	void SetMoonProgress()
 	{
-		float nightProgress = Mathf.Lerp(0f, 1f, (_progressToGoal - 0.5f) / 0.5f);
+		float nightProgress = Mathf.Lerp(0f, 1f, (progressToFerry - 0.5f) / 0.5f);
 		var newColor = Color.Lerp(_startColor, _endColor, nightProgress);
 		_moonlightMaterial.SetColor("_SkyColor", newColor);
 		_moonlightMaterial.SetFloat("_Brightness", _maxContrast * nightProgress);
