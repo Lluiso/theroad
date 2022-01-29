@@ -2,9 +2,8 @@ public class Dialogue_EnterCar : Dialogue
 {
     public Dialogue_EnterCar(DialogueMessage[] dialogue)
     {
-        _dialogue = dialogue;
+        DialogueMessages = dialogue;
     }
-    private DialogueMessage[] _dialogue;
 
     public new DialogueEvents.Trigger TriggerEvent => DialogueEvents.Trigger.EnterCar;
     public new DialogueEvents.Choice[] Choices => null;
@@ -16,9 +15,8 @@ public class Dialogue_LeaveCar : Dialogue
 {
     public Dialogue_LeaveCar(DialogueMessage[] dialogue)
     {
-        _dialogue = dialogue;
+        DialogueMessages = dialogue;
     }
-    private DialogueMessage[] _dialogue;
 
     public new DialogueEvents.Trigger TriggerEvent => DialogueEvents.Trigger.LeaveCar;
     public new DialogueEvents.Choice[] Choices => null;
@@ -30,11 +28,15 @@ public class Dialogue_Stopping : Dialogue
 {
     public Dialogue_Stopping(StoppingDialogue dialogue)
     {
-        _dialogue = dialogue.Dialogue;
+        DialogueMessages = dialogue.Dialogue;
         _stoppingConditions = dialogue.Conditions;
     }
 
-    public DialogueMessage[] _dialogue;
+    public bool CheckConditionMet(string newPassenger)
+    {
+        return _stoppingConditions.IsMet(newPassenger);
+    }
+
     public DialogueEvents.StoppingConditions _stoppingConditions;
 
     public new DialogueEvents.Trigger TriggerEvent => DialogueEvents.Trigger.Stopping;
@@ -48,11 +50,16 @@ public class Dialogue_InCar : Dialogue
 {
     public Dialogue_InCar(InCarDialogue dialogue)
     {
-        _dialogue = dialogue.Dialogue;
+        DialogueMessages = dialogue.Dialogue;
         _inCarConditions = dialogue.Conditions;
         _choices = dialogue.Choices;
     }
-    private DialogueMessage[] _dialogue;
+
+    public bool CheckConditionsMet(string[] allPassengers)
+    {
+        return _inCarConditions.IsMet(allPassengers);
+    }
+
     private DialogueEvents.InCarConditions _inCarConditions;
     private DialogueEvents.Choice[] _choices;
 
@@ -67,9 +74,8 @@ public class Dialogue_Hitchhike : Dialogue
 {
     public Dialogue_Hitchhike(DialogueMessage[] dialogue)
     {
-        _dialogue = dialogue;
+        DialogueMessages = dialogue;
     }
-    private DialogueMessage[] _dialogue;
 
     public new DialogueEvents.Trigger TriggerEvent => DialogueEvents.Trigger.Hitchhike;
     public new DialogueEvents.Condition Conditions => null;

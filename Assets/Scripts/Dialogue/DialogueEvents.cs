@@ -1,3 +1,5 @@
+using System.Linq;
+
 public class DialogueEvents 
 {
     public enum Trigger
@@ -26,18 +28,27 @@ public class DialogueEvents
 
     public abstract class Condition
     {
-        public virtual bool IsMet(string[] args)
-        {
-            return true;
-        }
+        
     }
 
     [System.Serializable]
     public class InCarConditions : Condition
     {
-        public override bool IsMet(string[] args)
+        public bool IsMet(string[] currentPassengers)
         {
-            return true;
+            if (currentPassengers.Length == PassengerCount)
+            {
+                return true;
+            }
+            foreach (var c in currentPassengers)
+            {
+                if (CharactersInCar.Any(inCar => c == inCar))
+                {
+                    // this passenger doesnt like someone in the car
+                    return true;
+                }
+            }
+            return false;
         }
 
         public int PassengerCount;
@@ -47,9 +58,10 @@ public class DialogueEvents
     [System.Serializable]
     public class StoppingConditions : Condition
     {
-        public override bool IsMet(string[] args)
+        public bool IsMet(string newPassenger)
         {
-            return true;
+            // check if this passenger cares about the character being picked up
+            return CharacterBeingPickedUp.Any(c => c == newPassenger);
         }
 
         public string[] CharacterBeingPickedUp;

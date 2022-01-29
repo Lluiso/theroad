@@ -6,4 +6,10 @@ public class Dialogue
     public DialogueEvents.Condition Conditions;
 
     public DialogueMessage[] DialogueMessages;
+
+    public void MarkSeen()
+    {
+        Seen = true;
+    }
+    public bool Seen { get; private set; } = false;
 }

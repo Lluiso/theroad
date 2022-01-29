@@ -38,7 +38,7 @@ public class BaseDialogues : UnityEngine.ScriptableObject
             if (_inCar == null)
             {
                 _inCar = new Dialogue_InCar[InCarDialogues.Length];
-                for (var i = 0; i < _stopping.Length; i++)
+                for (var i = 0; i < _inCar.Length; i++)
                 {
                     _inCar[i] = new Dialogue_InCar(InCarDialogues[i]);
                 }
