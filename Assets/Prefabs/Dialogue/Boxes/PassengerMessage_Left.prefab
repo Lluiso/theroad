@@ -15,9 +15,33 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3084091528754210633, guid: 94a620391a04e418991642551db994af, type: 3}
+      propertyPath: m_text
+      value: '<b>Kevin</b>
+
+        ayo'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3084091528754210633, guid: 94a620391a04e418991642551db994af, type: 3}
+      propertyPath: m_fontSize
+      value: 63
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679099194294740418, guid: 94a620391a04e418991642551db994af, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -175
+      objectReference: {fileID: 0}
     - target: {fileID: 3679099194294740418, guid: 94a620391a04e418991642551db994af, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679099194294740418, guid: 94a620391a04e418991642551db994af, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -37.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5670668303296492838, guid: 94a620391a04e418991642551db994af, type: 3}
+      propertyPath: m_text
+      value: '<b>Kevin</b>
+
+        ayo'
       objectReference: {fileID: 0}
     - target: {fileID: 5670668303296492838, guid: 94a620391a04e418991642551db994af, type: 3}
       propertyPath: m_fontColor.a
@@ -149,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7387886473114044030, guid: 94a620391a04e418991642551db994af, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 250
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7387886473114044030, guid: 94a620391a04e418991642551db994af, type: 3}
       propertyPath: m_LocalScale.x
@@ -161,7 +185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7387886473114044030, guid: 94a620391a04e418991642551db994af, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -75
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 7387886473114044031, guid: 94a620391a04e418991642551db994af, type: 3}
       propertyPath: m_Layer

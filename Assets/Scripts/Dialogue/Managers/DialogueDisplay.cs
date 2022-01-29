@@ -9,7 +9,7 @@ public class DialogueDisplay : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void DisplayDialogue(Dialogue dialogue)
+    private void DisplayDialogue(Dialogue dialogue, DialogueEvents.Choice[] choices)
     {
         var messages = dialogue.DialogueMessages?.Select(m => "<color=cyan>"+ m.CharacterName + "</color>:\t" + m.Message).ToArray() ?? null;
         if (messages != null && messages.Length > 0)

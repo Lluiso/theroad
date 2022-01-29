@@ -72,17 +72,21 @@ public class Dialogue_InCar : Dialogue
 
 public class Dialogue_Hitchhike : Dialogue
 {
-    public Dialogue_Hitchhike(DialogueMessage[] dialogue)
+    public Dialogue_Hitchhike(DialogueMessage[] dialogue, string name)
     {
         DialogueMessages = dialogue;
+        _choices = new[]
+        {
+            new DialogueEvents.Choice { Resolution = DialogueEvents.ResolutionType.Accept, Context = name},
+            new DialogueEvents.Choice { Resolution = DialogueEvents.ResolutionType.Reject, Context = name}
+        };
     }
+
+    private DialogueEvents.Choice[] _choices;
 
     public new DialogueEvents.Trigger TriggerEvent => DialogueEvents.Trigger.Hitchhike;
     public new DialogueEvents.Condition Conditions => null;
-    public new DialogueEvents.Choice[] Choices => new [] {
-        new DialogueEvents.Choice { Resolution = DialogueEvents.ResolutionType.Accept, Context = ""},
-        new DialogueEvents.Choice { Resolution = DialogueEvents.ResolutionType.Reject, Context = ""}
-    };
+    public new DialogueEvents.Choice[] Choices => _choices;
 }
 
 [System.Serializable]

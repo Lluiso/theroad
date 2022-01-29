@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public static class DialogueController
 {
-    public static Action<Dialogue> ShowDialogue;
+    public static Action<Dialogue, DialogueEvents.Choice[]> ShowDialogue;
 
     private static CharacterDialogues _characterDialogues;
     private static int PassengerCount => Car.Passengers.Count;
@@ -45,7 +45,7 @@ public static class DialogueController
         {
             // pick random
             var rand = UnityEngine.Random.Range(0, valid.Count);
-            TryShowDialogue(valid[rand]);
+            TryShowDialogue(valid[rand], valid[rand].Choices);
         }
     }
 
@@ -54,7 +54,7 @@ public static class DialogueController
         var dialogue = PassengerDialogue(passengerName);
         if (dialogue != null && dialogue.EnterCar != null)
         {
-            TryShowDialogue(dialogue.EnterCar);
+            TryShowDialogue(dialogue.EnterCar, dialogue.EnterCar.Choices);
         }
     }
     
@@ -63,7 +63,7 @@ public static class DialogueController
         var dialogue = PassengerDialogue(passengerName);
         if (dialogue != null && dialogue.LeaveCar != null)
         {
-            TryShowDialogue(dialogue.LeaveCar);
+            TryShowDialogue(dialogue.LeaveCar, dialogue.LeaveCar.Choices);
         }
     }
 
@@ -81,7 +81,7 @@ public static class DialogueController
         {
             // pick random
             var rand = UnityEngine.Random.Range(0, valid.Count);
-            TryShowDialogue(valid[rand]);
+            TryShowDialogue(valid[rand], valid[rand].Choices);
         }
     }
 
@@ -90,16 +90,16 @@ public static class DialogueController
         var dialogue = PassengerDialogue(newPassenger);
         if (dialogue != null && dialogue.Hitchhike != null)
         {
-            TryShowDialogue(dialogue.Hitchhike);
+            TryShowDialogue(dialogue.Hitchhike, dialogue.Hitchhike.Choices);
         }
     }
 
-    private static void TryShowDialogue(Dialogue dialogue)
+    private static void TryShowDialogue(Dialogue dialogue, DialogueEvents.Choice[] choices)
     {
         // sanity check
         if (!dialogue.Seen)
         {
-            ShowDialogue?.Invoke(dialogue);
+            ShowDialogue?.Invoke(dialogue, choices);
             dialogue.MarkSeen();          
         }
     }

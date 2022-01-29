@@ -37,6 +37,7 @@ public class CharacterDialogues
         if (!AllCharacters.ContainsKey(name))
         {
             Debug.LogError("No Dialogue found for " + name);
+            return;
         }
         var dialogue = AllCharacters[name];
         CurrentPassengers.Add(name, dialogue);

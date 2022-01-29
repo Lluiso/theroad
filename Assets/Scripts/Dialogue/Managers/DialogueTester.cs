@@ -16,10 +16,12 @@ namespace Testing
                 switch (s.TriggerType)
                 {
                     case TestSteps.TriggerTypes.GetInCar:
-                        CarEvents.AddPassenger(s.Context);
+                        // handled in code
+                        //CarEvents.AddPassenger(s.Context);
                         break;
                     case TestSteps.TriggerTypes.ExitCar:
-                        CarEvents.RemovePassenger(s.Context);
+                        // handled in code
+                        //CarEvents.RemovePassenger(s.Context);
                         break;
                     case TestSteps.TriggerTypes.InCar:
                         CarEvents.CheckForInCarDialogue();

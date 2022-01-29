@@ -24,7 +24,7 @@ public class BaseDialogues : UnityEngine.ScriptableObject
         get {
             if (_hitchike == null)
             {
-                _hitchike = new Dialogue_Hitchhike(HitchhikeDialogue);
+                _hitchike = new Dialogue_Hitchhike(HitchhikeDialogue, CharacterName);
             }
             return _hitchike;
         }
