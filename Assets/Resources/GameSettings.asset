@@ -14,5 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _forceSkylightProgress: 1
   _startingDistanceToFerryMeters: 10000
+  _vegetationPlaneMargin: 0.05
+  _minVegetationPerPlane: 10
+  _maxVegetationPerPlane: 30
+  _vegetationPrefabs:
+  - {fileID: 7652108210833638080, guid: 459875f6a2eb74256b78e3a4a4662d50, type: 3}
   _timeLimitInSeconds: 0
   _progressForLightsOn: 0.2
