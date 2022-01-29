@@ -2630,6 +2630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1f21c7d54044066bc7a89892252502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: 48f8d33704b89464385c0d2a3012ac43, type: 2}
+  _groundLeft: {fileID: 4963865609412764332}
+  _groundRight: {fileID: 4963865609679598026}
 --- !u!1 &4963865608442436120
 GameObject:
   m_ObjectHideFlags: 0

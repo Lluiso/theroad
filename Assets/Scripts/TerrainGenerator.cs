@@ -2,20 +2,38 @@ using UnityEngine;
 
 public class TerrainGenerator : MonoBehaviour
 {
+	public static float ProgressToFerry { get; private set; }
 	[SerializeField] private GameSettings _settings;
 	[SerializeField] private float _segmentLength;
 	[SerializeField] private float _roadSignIntervalsMeters;
 	[SerializeField] private float _visibleLength;
 	[SerializeField] private GameObject _roadSectionPrefab;
 	[SerializeField] private GameObject _roadSignPrefab;
+	[SerializeField] private float _carSpeed;
 	private int _numberOfSectionsToGenerate;
 	private Transform _roadSegmentsParent;
+	private float distanceCovered = 0f;
 
 	public void DEBUGClearAndGenerate()
 	{
 		DestroyChildren();
 		_numberOfSectionsToGenerate = (int)((_settings.StartingDistanceToFerryMeters / _segmentLength) + 1);
 		Generate();
+	}
+
+	void Update()
+	{
+		MoveTrack();
+	}
+
+	void MoveTrack()
+	{
+		var newPos = transform.position;
+		var zDelta = _carSpeed * Time.deltaTime;
+		distanceCovered += zDelta;
+		newPos.z -= zDelta;
+		transform.position = newPos;
+		ProgressToFerry = distanceCovered / _settings.StartingDistanceToFerryMeters;
 	}
 
 	void Generate()
@@ -58,6 +76,7 @@ public class TerrainGenerator : MonoBehaviour
 			var newSpawnPos = transform.position;
 			newSpawnPos.z = nextZ;
 			var newRoadPiece = Instantiate(_roadSectionPrefab, transform, true);
+			newRoadPiece.GetComponent<RoadSection>().GenerateVegetation();
 			newRoadPiece.name = $"Road section {i}";
 			newRoadPiece.transform.position = newSpawnPos;
 			newRoadPiece.transform.parent = _roadSegmentsParent;
