@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class RoadSection : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Plane _groundLeft;
 
-    // Update is called once per frame
-    void Update()
+    void PlaceVegetation()
     {
         
     }
