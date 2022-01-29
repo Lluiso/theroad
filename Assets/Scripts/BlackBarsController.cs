@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 public class BlackBarsController : MonoBehaviour
 {
 
@@ -11,6 +12,9 @@ public class BlackBarsController : MonoBehaviour
 
     [SerializeField]
     private RectTransform bottomBar;
+
+    [SerializeField]
+    private CanvasGroup UICanvas;
 
     public float percentageScreenHidden = 0.2f;
 
@@ -32,7 +36,7 @@ public class BlackBarsController : MonoBehaviour
 
         GetComponent<CanvasGroup>().alpha = 1f;
 
-        StartCoroutine(waitAndShowBars());
+        //StartCoroutine(waitAndShowBars());
     }
 
 
@@ -42,14 +46,17 @@ public class BlackBarsController : MonoBehaviour
         showBars();
     }
 
+    [Button]
     public void showBars()
     {
+        UICanvas.DOFade(0f, animationDuration * 0.5f);
         topBar.DOLocalMoveY(-height, animationDuration).SetRelative();
         bottomBar.DOLocalMoveY(height, animationDuration).SetRelative();
     }
-
+    [Button]
     public void hideBars()
     {
+        UICanvas.DOFade(1f, animationDuration * 0.5f);
         topBar.DOLocalMoveY(height, animationDuration).SetRelative();
         bottomBar.DOLocalMoveY(-height, animationDuration).SetRelative();
     }

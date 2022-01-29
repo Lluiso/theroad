@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using Sirenix.OdinInspector;
 public class CarResourcesController : MonoBehaviour
 {
 
@@ -19,6 +20,10 @@ public class CarResourcesController : MonoBehaviour
     //speed
     [SerializeField]
     private TextMeshProUGUI speedText;
+
+    //passengers
+    [SerializeField]
+    private GameObject[] passengerIcons;
 
     [SerializeField]
     private Transform speedArrow;
@@ -40,7 +45,8 @@ public class CarResourcesController : MonoBehaviour
 
     private double gasConsumed;
 
-    private int amountPeoplePickedUp;
+
+    private int currentPassengers = 0;
 
 
 
@@ -56,8 +62,9 @@ public class CarResourcesController : MonoBehaviour
         lastKmCheck = DateTime.Now;
         gasConsumed = 0;
         kmDone = 0;
-        amountPeoplePickedUp = 0;
+        currentPassengers = 0;
         StartCoroutine(Countdown());
+        updatePassengersUI();
 
     }
 
@@ -80,7 +87,7 @@ public class CarResourcesController : MonoBehaviour
             //gas
             TimeSpan timeSinceLastCheck = DateTime.Now - lastKmCheck;
             double secondsPassed = timeSinceLastCheck.TotalSeconds;
-            gasConsumed += secondsPassed + (amountPeoplePickedUp * gasMultiplierPerPerson);
+            gasConsumed += secondsPassed + (currentPassengers * gasMultiplierPerPerson);
             double percentageGas = (totalGasInSeconds - gasConsumed) / totalGasInSeconds;
             gasText.text = Mathf.Round((float)percentageGas * 100) + "%";
 
@@ -93,6 +100,27 @@ public class CarResourcesController : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.1f);
         }
     }
+    [Button]
+    public void addPassenger()
+    {
+        ++currentPassengers;
+        updatePassengersUI();
+    }
+    [Button]
+    public void kickPassenger()
+    {
+        --currentPassengers;
+        updatePassengersUI();
+    }
+
+    void updatePassengersUI()
+    {
+        for (int i = 0; i < passengerIcons.Length; i++)
+        {
+            passengerIcons[i].SetActive(i < currentPassengers);
+        }
+    }
+
 
     void gameOver()
     {
