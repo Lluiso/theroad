@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   _forceSkylightProgress: 1
-  _startingDistanceToFerryMeters: 0
+  _startingDistanceToFerryMeters: 10000
   _timeLimitInSeconds: 0
-  _progressForLightsOn: 0.3
+  _progressForLightsOn: 0.2

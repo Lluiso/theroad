@@ -2,22 +2,25 @@ using UnityEngine;
 
 public class TerrainGenerator : MonoBehaviour
 {
-	[SerializeField] private int _sectionsToGenerate;
-	[SerializeField] private int _sectionLengthWorldUnits;
+	[SerializeField] private GameSettings _settings;
+	[SerializeField] private float _segmentLength;
+	[SerializeField] private float _visibleLength;
 	[SerializeField] private GameObject _roadSectionPrefab;
+	private int _numberOfSectionsToGenerate;
 
 	public void DEBUGClearAndGenerate()
 	{
 		DestroyChildren();
+		_numberOfSectionsToGenerate = (int)((_settings.StartingDistanceToFerryMeters / _segmentLength) + 1);
 		Generate();
 	}
 
 	void Generate()
 	{
 		float nextZ = transform.position.z;
-		for (int i = 0; i < _sectionsToGenerate; i++)
+		for (int i = 0; i < _numberOfSectionsToGenerate; i++)
 		{
-			nextZ = _sectionLengthWorldUnits * i;
+			nextZ = _segmentLength * i;
 			var newSpawnPos = transform.position;
 			newSpawnPos.z = nextZ;
 			var newRoadPiece = Instantiate(_roadSectionPrefab, transform, true);

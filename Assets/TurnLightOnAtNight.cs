@@ -4,6 +4,7 @@ using UnityEngine;
 public class TurnLightOnAtNight : MonoBehaviour
 {
 	[SerializeField] private GameSettings _settings;
+	[SerializeField] private GameObject _emissionlight;
 	private Light _light;
 	private void Awake()
 	{
@@ -24,5 +25,9 @@ public class TurnLightOnAtNight : MonoBehaviour
 	void SetLightsEnabled(bool isEnabled)
 	{
 		_light.enabled = isEnabled;
+		if (_emissionlight != null)
+		{
+			_emissionlight.SetActive(isEnabled);
+		}
 	}
 }
