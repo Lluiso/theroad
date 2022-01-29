@@ -29,18 +29,19 @@ public class SkyController : MonoBehaviour
 
 	void Update()
 	{
-#if UNITY_EDITOR
-		if (_updateInEditMode == false)
+		if (Application.isPlaying == false && _updateInEditMode)
 		{
-			return;
+			progressToFerry = progressOverride;
 		}
-		DebugUpdateLights();
-#endif
+		else
+		{
+			progressToFerry = TerrainGenerator.ProgressToFerry;
+		}
+		UpdateLights();
 	}
 
-	void DebugUpdateLights()
+	void UpdateLights()
 	{
-		progressToFerry = progressOverride;
 		SetLightSettings();
 		SetSunProgress();
 		SetMoonProgress();

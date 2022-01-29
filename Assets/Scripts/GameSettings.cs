@@ -10,6 +10,11 @@ public class GameSettings : ScriptableObject
 	public float ForceSkyLightProgress => _forceSkylightProgress;
 	public float ProgressForLightsOn => _progressForLightsOn;
 
+	public List<GameObject> VegetationPrefabs => _vegetationPrefabs;
+	public float VegetationPlaneMargin => _vegetationPlaneMargin;
+	public int MinVegetationPerPlane => _minVegetationPerPlane;
+	public int MaxVegetationPerPlane => _maxVegetationPerPlane;
+
 	[Header("DEBUG")]
 	[Range(0f, 1f)]
 	[SerializeField]
@@ -18,6 +23,15 @@ public class GameSettings : ScriptableObject
 	[Header("Starting values")]
 	[SerializeField]
 	private float _startingDistanceToFerryMeters;
+
+	[Header("Vegetation")]
+	[SerializeField]
+	private float _vegetationPlaneMargin;
+
+	[SerializeField] private int _minVegetationPerPlane;
+	[SerializeField] private int _maxVegetationPerPlane;
+
+	[SerializeField] private List<GameObject> _vegetationPrefabs;
 
 	[SerializeField] private float _timeLimitInSeconds;
 
