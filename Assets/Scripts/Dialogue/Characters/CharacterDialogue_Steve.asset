@@ -16,25 +16,42 @@ MonoBehaviour:
   HitchhikeDialogue:
   - CharacterName: Steve
     Message: Help Me!
+    MessageBoxType: 0
   - CharacterName: Steve
     Message: I'm trying to find my friends
+    MessageBoxType: 0
+  EnterCarDialogue:
+  - CharacterName: Steve
+    Message: You're My saviour, i'm gonna tell my kids about you for years to come!
+    MessageBoxType: 0
   InCarDialogues:
   - Dialogue:
     - CharacterName: Steve
       Message: Kevin, your mum is a slag
+      MessageBoxType: 0
     - CharacterName: Kevin
       Message: Fuck you Steve
+      MessageBoxType: 2
     Conditions:
       PassengerCount: -1
       CharactersInCar:
       - Kevin
+    Choices:
+    - Resolution: 3
+      Context: Steve
+    - Resolution: 3
+      Context: Kevin
+    - Resolution: 0
+      Context: 
   StoppingDialogues:
   - Dialogue:
     - CharacterName: Steve
-      Message: Oh not him
+      Message: Oh not him...
+      MessageBoxType: 0
     Conditions:
       CharacterBeingPickedUp:
       - Kevin
   LeaveCarDialogue:
   - CharacterName: Steve
     Message: I hope your kids get orphaned!
+    MessageBoxType: 0
