@@ -117,15 +117,19 @@ MonoBehaviour:
   - Type: 0
     LeftMessagePrefab: {fileID: 2811429941399546455, guid: 9504949ef343e44018cade9cef52aeb8, type: 3}
     RightMessagePrefab: {fileID: 2811429941399546455, guid: a13f42527539348dba100752b7f9a683, type: 3}
-    Format: '<size=35><color=#BC7B57>{0}</color></size>
+    Format: '<size=30><color=#BC7B57>{0}</color></size>
 
       <color=#6A3517>{1}</color>'
   - Type: 2
     LeftMessagePrefab: {fileID: 613658033642443470, guid: a861061d3146444cd9204ca627bdd189, type: 3}
     RightMessagePrefab: {fileID: 613658033642443470, guid: 9610f7ba48e7649a182944fd3e36e7be, type: 3}
-    Format: '<size=35><color=#BC5757>{0}</color></size>
+    Format: '<size=30><color=#BC5757>{0}</color></size>
 
       <color=#6A1717>{1}</color>'
+  - Type: 3
+    LeftMessagePrefab: {fileID: 7387886472349269531, guid: 269961a2122ab4c88b0851018294620b, type: 3}
+    RightMessagePrefab: {fileID: 7387886472349269531, guid: 269961a2122ab4c88b0851018294620b, type: 3}
+    Format: '{0}'
   _decisionButtonParent: {fileID: 6990201356305778853}
   _decisionButton: {fileID: 5170601325969067420, guid: 22effd62fa17543f9933b256b94fcdd7, type: 3}
   _ignoreButton: {fileID: 4842979330968400392, guid: c4b3b6e5aa98f4fb3838370aff22e045, type: 3}

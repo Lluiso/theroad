@@ -25,5 +25,8 @@ MonoBehaviour:
   StoppingDialogues: []
   LeaveCarDialogue:
   - CharacterName: Rosie
-    Message: aww *cries*
+    Message: aww
     MessageBoxType: 0
+  - CharacterName: 
+    Message: As you pull away, you see rosie start to cry.
+    MessageBoxType: 3

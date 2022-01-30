@@ -83,7 +83,15 @@ public class UI_DialogueDisplay : MonoBehaviour
             }
             formattedMessage = newStr;
         }
-        return string.Format(box.Format, message.CharacterName, formattedMessage);
+        if (box.Type == DialogueMessage.MessageType.Narrative)
+        {
+            // no names on narration
+            return string.Format(box.Format, formattedMessage);
+        }
+        else
+        {
+            return string.Format(box.Format, message.CharacterName, formattedMessage);
+        }
     }
 
     private float GetMessageDelay(DialogueMessage message)
