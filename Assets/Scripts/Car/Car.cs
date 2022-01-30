@@ -16,16 +16,18 @@ public class Car : MonoBehaviour
 
         CarEvents.AddPassenger = AddPassenger;
         CarEvents.RemovePassenger = RemovePassenger;
+
+        TrackGenerator.OnPassengerApproaching += GoToHitchhikeMode;
+    }
+
+    private void Start()
+    {
+        CarEvents.EndInteraction?.Invoke();
     }
 
     public void GoToHitchhikeMode(string passengerToPickUp)
     {
         CarEvents.Passenger.SlowingToPickUp?.Invoke(passengerToPickUp);
-    }
-
-    public void StopAtPassenger(string passengerToPickUp)
-    {
-        CarEvents.Passenger.StoppedAt?.Invoke(passengerToPickUp);
     }
 
     private void AddPassenger(string name)
@@ -36,6 +38,7 @@ public class Car : MonoBehaviour
         }
         Passengers.Add(name);
         CarEvents.Passenger.Entered?.Invoke(name);
+        CarEvents.EndInteraction?.Invoke();
     }
 
     private void RemovePassenger(string name)
@@ -46,5 +49,6 @@ public class Car : MonoBehaviour
         }
         Passengers.Remove(name);
         CarEvents.Passenger.Exited?.Invoke(name);
+        CarEvents.EndInteraction?.Invoke();
     }
 }

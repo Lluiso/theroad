@@ -21,8 +21,16 @@ public class BlackBarsController : MonoBehaviour
     public float animationDuration = 1.5f;
 
     private float height;
+    private bool _barsHidden = true;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        _barsHidden = true;
+        CarEvents.StartInteraction += hideBars;
+        CarEvents.EndInteraction += showBars;
+    }
+
     void Start()
     {
         height = Screen.height * percentageScreenHidden;
@@ -32,7 +40,6 @@ public class BlackBarsController : MonoBehaviour
 
         topBar.DOLocalMoveY(height, 0f).SetRelative();
         bottomBar.DOLocalMoveY(-height, 0f).SetRelative();
-
 
         GetComponent<CanvasGroup>().alpha = 1f;
 
@@ -49,13 +56,25 @@ public class BlackBarsController : MonoBehaviour
     [Button]
     public void showBars()
     {
-        UICanvas.DOFade(0f, animationDuration * 0.5f);
+        if (!_barsHidden)
+        {
+            return;
+        }
+        _barsHidden = false;
+        Debug.Log("Show Bars");
+        UICanvas.DOFade(0.2f, animationDuration * 0.5f);
         topBar.DOLocalMoveY(-height, animationDuration).SetRelative();
         bottomBar.DOLocalMoveY(height, animationDuration).SetRelative();
     }
     [Button]
     public void hideBars()
     {
+        if (_barsHidden)
+        {
+            return;
+        }
+        _barsHidden = true;
+        Debug.Log("Hide Bars");
         UICanvas.DOFade(1f, animationDuration * 0.5f);
         topBar.DOLocalMoveY(height, animationDuration).SetRelative();
         bottomBar.DOLocalMoveY(-height, animationDuration).SetRelative();

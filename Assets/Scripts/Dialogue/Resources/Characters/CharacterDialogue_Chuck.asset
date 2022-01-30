@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894bcbd8e2d0c41f78446c3414af8ab5, type: 3}
+  m_Name: CharacterDialogue_Chuck
+  m_EditorClassIdentifier: 
+  CharacterName: Chuck
+  HitchhikeDialogue:
+  - CharacterName: Chuck
+    Message: I'm Chuck
+    MessageBoxType: 0
+  EnterCarDialogue:
+  - CharacterName: Chuck
+    Message: ayy
+    MessageBoxType: 0
+  InCarDialogues: []
+  StoppingDialogues: []
+  LeaveCarDialogue:
+  - CharacterName: Chuck
+    Message: I hate you!
+    MessageBoxType: 2
