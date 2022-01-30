@@ -69,7 +69,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 588705583278089937, guid: a60fe9c406fdb4afaabd5ab809950fb7, type: 3}
       propertyPath: m_Name
-      value: DialogueDisplay
+      value: DialogueDisplayTester
+      objectReference: {fileID: 0}
+    - target: {fileID: 588705583278089937, guid: a60fe9c406fdb4afaabd5ab809950fb7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 588705583278089938, guid: a60fe9c406fdb4afaabd5ab809950fb7, type: 3}
       propertyPath: m_RootOrder

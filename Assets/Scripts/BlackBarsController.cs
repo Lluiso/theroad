@@ -23,6 +23,12 @@ public class BlackBarsController : MonoBehaviour
     private float height;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        CarEvents.StartInteraction += hideBars;
+        CarEvents.EndInteraction += showBars;
+    }
+
     void Start()
     {
         height = Screen.height * percentageScreenHidden;
@@ -33,10 +39,9 @@ public class BlackBarsController : MonoBehaviour
         topBar.DOLocalMoveY(height, 0f).SetRelative();
         bottomBar.DOLocalMoveY(-height, 0f).SetRelative();
 
-
         GetComponent<CanvasGroup>().alpha = 1f;
 
-        //StartCoroutine(waitAndShowBars());
+        StartCoroutine(waitAndShowBars());
     }
 
 

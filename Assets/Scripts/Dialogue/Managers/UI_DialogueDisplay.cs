@@ -94,6 +94,11 @@ public class UI_DialogueDisplay : MonoBehaviour
 
     private IEnumerator ShowDialogueMessages(Dialogue dialogue, DialogueEvents.Choice[] choices)
     {
+        if (choices != null)
+        {
+            // some sort of interaction
+            CarEvents.StartInteraction?.Invoke();
+        }
         _decisionMade = false;
         var lastCharacterToSpeak = dialogue.DialogueMessages.First().CharacterName;
         bool isRight = false;
@@ -198,6 +203,7 @@ public class UI_DialogueDisplay : MonoBehaviour
             StartCoroutine(CleanUp(0f));
         }
         Time.timeScale = 1f;
+        CarEvents.EndInteraction?.Invoke();
     }
 
 
