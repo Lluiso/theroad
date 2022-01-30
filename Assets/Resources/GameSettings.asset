@@ -16,12 +16,12 @@ MonoBehaviour:
   SkipToNight: 0
   RainStartProgress: 0.5
   PassengerSpawnPoints:
-  - 0.1
-  - 0.2
-  - 0.3
+  - 0.25
+  - 0.325
   - 0.4
   - 0.6
-  - 0.8
+  - 0.75
+  - 0.85
   Passengers:
   - Name: Carol
     Avatar: {fileID: 21300000, guid: f1351f35a2d154f819e1f97450d3e318, type: 3}

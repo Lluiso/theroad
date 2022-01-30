@@ -47,7 +47,13 @@ MonoBehaviour:
       PassengerCount: -1
       CharactersInCar:
       - Harvey
-    Choices: []
+    Choices:
+    - Resolution: 3
+      Context: Chuck
+    - Resolution: 3
+      Context: Harvey
+    - Resolution: 0
+      Context: 
   StoppingDialogues:
   - Dialogue:
     - CharacterName: Chuck

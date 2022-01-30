@@ -51,7 +51,13 @@ MonoBehaviour:
       PassengerCount: -1
       CharactersInCar:
       - Rosie
-    Choices: []
+    Choices:
+    - Resolution: 3
+      Context: Rosie
+    - Resolution: 3
+      Context: Harvey
+    - Resolution: 0
+      Context: 
   StoppingDialogues:
   - Dialogue:
     - CharacterName: Harvey

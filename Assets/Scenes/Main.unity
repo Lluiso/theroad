@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1947447200}
-  m_IndirectSpecularColor: {r: 0.5902732, g: 0.443868, b: 0.13749379, a: 1}
+  m_IndirectSpecularColor: {r: 0.41527012, g: 0.24553941, b: 0.046835784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1233,8 +1233,8 @@ MonoBehaviour:
   carolSprite: {fileID: 21300000, guid: a2b41359ee3cf41a29e09cca0ef206e1, type: 3}
   rosieSprite: {fileID: 21300000, guid: 76c32008aca614183aa20828a822b468, type: 3}
   salimaSprite: {fileID: 21300000, guid: 08975e40e9fec42eabadb28afb6639dc, type: 3}
-  chuckSprite: {fileID: 21300000, guid: 2d121bf60193d4ebead5aed083bd66ef, type: 3}
-  peterSprite: {fileID: 21300000, guid: 2d121bf60193d4ebead5aed083bd66ef, type: 3}
+  chuckSprite: {fileID: 21300000, guid: 6c058befd9a07453fbe3be771bd6754d, type: 3}
+  peterSprite: {fileID: 21300000, guid: 2e5bd945e4514491fa7406b60f80109c, type: 3}
 --- !u!225 &347979786
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2382,7 +2382,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Drag and drop to reestructure
+  m_text: Drag and drop to restructure
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 80a75c4890d8d4fc3b6b2dfe07219ff3, type: 2}
   m_sharedMaterial: {fileID: -2214588539951032174, guid: 80a75c4890d8d4fc3b6b2dfe07219ff3, type: 2}
@@ -4456,19 +4456,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1251552750535960905, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.022505911
+      value: -0.02022101
       objectReference: {fileID: 0}
     - target: {fileID: 1251552750535960905, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.06770378
+      value: 0.069142446
       objectReference: {fileID: 0}
     - target: {fileID: 1251552750535960905, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9747119
+      value: 0.9922482
       objectReference: {fileID: 0}
     - target: {fileID: 1251552750535960905, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.21176974
+      value: -0.10126256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
