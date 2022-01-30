@@ -74,10 +74,12 @@ public static class DialogueController
         var valid = new List<Dialogue_Stopping>();
         foreach(var character in CurrentPassengerDialogues.Values)
         {
+            Debug.Log("checking character: " + character);
             var validDialogues = character.Stopping.Where(d => d.CheckConditionMet(newPassenger) && !d.Seen).ToList();
+            Debug.Log("found for character: " + valid.Count());
             valid.AddRange(validDialogues);
         }
-        Debug.Log("Valid dialogues for current passengers when picking up new passenger: " + valid.Count);
+        Debug.Log("Valid dialogues for current passengers when picking up new passenger: " + valid.Count + "(" +newPassenger +")");
         if (valid.Count > 0)
         {
             // pick random

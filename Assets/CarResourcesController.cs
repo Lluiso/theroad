@@ -75,7 +75,7 @@ public class CarResourcesController : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("countdown step");
+            //Debug.Log("countdown step");
             //watch
             TimeSpan timeToEnd = endTime - DateTime.Now;
             string timeString = string.Format("{0:00}:{1:00}", timeToEnd.Minutes, timeToEnd.Seconds);

@@ -27,6 +27,7 @@ public class GameSettings : ScriptableObject
 	public List<Passenger> Passengers;
 	public float DistanceToAlertApproachingCharacter;
 	public float DistanceFromCharacterToStop;
+	public float MinDistanceToTriggerInCarEvent = 150;
 
 	[Header("Starting values")]
 	[SerializeField]

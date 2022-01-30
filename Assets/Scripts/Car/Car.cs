@@ -10,6 +10,11 @@ public class Car : MonoBehaviour
     public static int MaxPassengers;
     public static List<string> Passengers = new List<string>();
 
+    [SerializeField]
+    private GameSettings _gameSettings;
+    [SerializeField]
+    private float _inCarEventPollRate;
+
     private void Awake()
     {
         // lazy exposing of max :)
@@ -22,8 +27,22 @@ public class Car : MonoBehaviour
         CarEvents.MovingOff += ProcessPassengers;
 
         TrackGenerator.OnPassengerApproaching += GoToHitchhikeMode;
+
+        StartCoroutine(PollForCarEvent());
     }
 
+    private IEnumerator PollForCarEvent()
+    {
+        var delay = new WaitForSeconds(_inCarEventPollRate);
+        while (true)
+        {
+            yield return delay;
+            if (TrackGenerator.NormalizedSpeed() > 0.5f && TrackGenerator.DistanceToNextPassenger() > _gameSettings.MinDistanceToTriggerInCarEvent && !UI_DialogueDisplay.ShowingDialogue)
+            {
+                CarEvents.CheckForInCarDialogue?.Invoke();
+            }
+        }
+    }
 
     private void SetupDilemma(string newPassenger)
     {

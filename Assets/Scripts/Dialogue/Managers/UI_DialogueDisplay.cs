@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class UI_DialogueDisplay : MonoBehaviour
 {
+    public static bool ShowingDialogue = false;
+
     [SerializeField] private DialogueBox[] _boxes;
     [SerializeField] private GameObject _decisionButtonParent;
     [SerializeField] private GameObject _decisionButton;
@@ -53,6 +55,7 @@ public class UI_DialogueDisplay : MonoBehaviour
         }
         _currentGameObjects.Clear();
         _context.Clear();
+        ShowingDialogue = false;
     }
 
     private string FormatMessage(DialogueMessage message, DialogueBox box)
@@ -105,6 +108,7 @@ public class UI_DialogueDisplay : MonoBehaviour
 
     private IEnumerator ShowDialogueMessages(Dialogue dialogue, DialogueEvents.Choice[] choices)
     {
+        ShowingDialogue = true;
         if (choices != null)
         {
             // some sort of interaction
@@ -177,8 +181,8 @@ public class UI_DialogueDisplay : MonoBehaviour
                     // todo scope
                     // todo figure out if we want some over-arching resolution if you ignore the event
                     ignoreButton = Instantiate(_ignoreButton, _decisionButtonParent.transform).GetComponent<DecisionButton_Ignore>();
-                    ignoredEvent = () => OnButtonPress(null, indexCopy);
-                    ignoreButton.Set(() => OnButtonPress(null, indexCopy), "Ignore");
+                    ignoredEvent = () => OnButtonPress(null, indexCopy, true);
+                    ignoreButton.Set(() => OnButtonPress(null, indexCopy, true), "Ignore");
                     _currentGameObjects.Add(ignoreButton.gameObject);
                     break;
             }
@@ -200,7 +204,7 @@ public class UI_DialogueDisplay : MonoBehaviour
         }
     }
 
-    private void OnButtonPress(Action<string> call, int index)
+    private void OnButtonPress(Action<string> call, int index, bool clearOnEnd = false)
     {
         if (_decisionMade)
         {
@@ -216,6 +220,11 @@ public class UI_DialogueDisplay : MonoBehaviour
         else
         {
             CarEvents.EndInteraction?.Invoke();
+            ShowingDialogue = false;
+            if (clearOnEnd)
+            {
+                ClearMessages();
+            }
         }
     }
 }
