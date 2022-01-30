@@ -115,8 +115,8 @@ public class CarResourcesController : MonoBehaviour
                 gameOver();
                 yield break;
             }
-            //km
-
+            //speed
+            speedText.text = Mathf.Round(startSpeedInKmH * TrackGenerator.NormalizedSpeed()) + "km/h";
 
 
             lastKmCheck = DateTime.Now;
