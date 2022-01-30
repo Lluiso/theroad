@@ -20,8 +20,9 @@ public class GameSettings : ScriptableObject
 	private float _forceSkylightProgress;
 
 	[Header("Passengers")] public List<float> PassengerSpawnPoints;
-	public List<string> PassengerNames;
+	public List<Passenger> Passengers;
 	public float DistanceToAlertApproachingCharacter;
+	public float DistanceFromCharacterToStop;
 
 	[Header("Starting values")]
 	[SerializeField]
@@ -39,4 +40,11 @@ public class GameSettings : ScriptableObject
 	[SerializeField] private float _timeLimitInSeconds;
 
 	[Header("Car")] [SerializeField] private float _progressForLightsOn;
+
+	[System.Serializable]
+	public class Passenger
+    {
+		public string Name;
+		public Sprite Avatar;
+    }
 }

@@ -16,7 +16,6 @@ public class UI_DialogueDisplay : MonoBehaviour
     [SerializeField] private int _maxWordCount = 15;
     [SerializeField] private float _maxWordTime = 3f;
     [SerializeField] private int _maxCharsPerLine = 20;
-    [SerializeField] private float _slowDownSpeed = 0.1f;
     [SerializeField] private float _timeAvailableForDecision = 5f;
     private bool _decisionMade;
     private Dictionary<int, string> _context = new Dictionary<int, string>();
@@ -29,6 +28,8 @@ public class UI_DialogueDisplay : MonoBehaviour
         public DialogueMessage.MessageType Type;
         public GameObject LeftMessagePrefab;
         public GameObject RightMessagePrefab;
+        [TextArea]
+        public string Format = "<size=40><color=#BC7B57>{0}</color></size>{1}";
     }
 
     private void Awake()
@@ -52,7 +53,7 @@ public class UI_DialogueDisplay : MonoBehaviour
         _context.Clear();
     }
 
-    private string FormatMessage(DialogueMessage message)
+    private string FormatMessage(DialogueMessage message, DialogueBox box)
     {
         var formattedMessage = message.Message;
         if (message.Message.Length > _maxCharsPerLine)
@@ -82,7 +83,7 @@ public class UI_DialogueDisplay : MonoBehaviour
             }
             formattedMessage = newStr;
         }
-        return $"<b>{message.CharacterName}</b>\n{formattedMessage}";
+        return string.Format(box.Format, message.CharacterName, formattedMessage);
     }
 
     private float GetMessageDelay(DialogueMessage message)
@@ -118,7 +119,7 @@ public class UI_DialogueDisplay : MonoBehaviour
             }
             var prefab = isRight ? box.RightMessagePrefab : box.LeftMessagePrefab;
             var go = Instantiate(prefab, _dialogueParent);
-            go.GetComponent<UI_Message>().Set(FormatMessage(message), isRight);
+            go.GetComponent<UI_Message>().Set(FormatMessage(message, box), isRight);
             _currentGameObjects.Add(go);
             yield return new WaitForSeconds(GetMessageDelay(message));
         }
@@ -134,7 +135,6 @@ public class UI_DialogueDisplay : MonoBehaviour
 
     private IEnumerator ShowDecisionButtons(DialogueEvents.Choice[] choices)
     {
-        Time.timeScale = _slowDownSpeed;
         bool canIgnore = true;
         Action ignoredEvent = null;
         DecisionButton_Ignore ignoreButton = null;
@@ -159,7 +159,7 @@ public class UI_DialogueDisplay : MonoBehaviour
                     break;
                 case DialogueEvents.ResolutionType.Reject:
                     var rejectButton = Instantiate(_decisionButton, _decisionButtonParent.transform).GetComponent<DecisionButton>();
-                    rejectButton.Set(() => OnButtonPress(CarEvents.Passenger.Exited, indexCopy), "Reject");
+                    rejectButton.Set(() => OnButtonPress(CarEvents.Passenger.Rejected, indexCopy), "Reject");
                     _currentGameObjects.Add(rejectButton.gameObject);
                     break;
                 case DialogueEvents.ResolutionType.None:
@@ -198,7 +198,9 @@ public class UI_DialogueDisplay : MonoBehaviour
             var context = _context[index];
             call?.Invoke(context);
         }
-        Time.timeScale = 1f;
-        CarEvents.EndInteraction?.Invoke();
+        else
+        {
+            CarEvents.EndInteraction?.Invoke();
+        }
     }
 }

@@ -26,4 +26,4 @@ MonoBehaviour:
   LeaveCarDialogue:
   - CharacterName: Salima
     Message: Cya
-    MessageBoxType: 0
+    MessageBoxType: 2

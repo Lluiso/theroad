@@ -26,4 +26,4 @@ MonoBehaviour:
   LeaveCarDialogue:
   - CharacterName: Chuck
     Message: I hate you!
-    MessageBoxType: 0
+    MessageBoxType: 2

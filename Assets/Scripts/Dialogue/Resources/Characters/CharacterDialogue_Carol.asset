@@ -26,4 +26,4 @@ MonoBehaviour:
   LeaveCarDialogue:
   - CharacterName: Carol
     Message: This would never happen back in my day!
-    MessageBoxType: 0
+    MessageBoxType: 2

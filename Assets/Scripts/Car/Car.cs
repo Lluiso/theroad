@@ -20,22 +20,14 @@ public class Car : MonoBehaviour
         TrackGenerator.OnPassengerApproaching += GoToHitchhikeMode;
     }
 
+    private void Start()
+    {
+        CarEvents.EndInteraction?.Invoke();
+    }
+
     public void GoToHitchhikeMode(string passengerToPickUp)
     {
         CarEvents.Passenger.SlowingToPickUp?.Invoke(passengerToPickUp);
-        // TODO add player choice
-        StartCoroutine(WaitToStop(passengerToPickUp));
-    }
-
-    private IEnumerator WaitToStop(string passengerToPickUp)
-    {
-        yield return new WaitForSeconds(1f);
-        StopAtPassenger(passengerToPickUp);
-    }
-
-    public void StopAtPassenger(string passengerToPickUp)
-    {
-        CarEvents.Passenger.StoppedAt?.Invoke(passengerToPickUp);
     }
 
     private void AddPassenger(string name)
@@ -46,6 +38,7 @@ public class Car : MonoBehaviour
         }
         Passengers.Add(name);
         CarEvents.Passenger.Entered?.Invoke(name);
+        CarEvents.EndInteraction?.Invoke();
     }
 
     private void RemovePassenger(string name)
@@ -56,5 +49,6 @@ public class Car : MonoBehaviour
         }
         Passengers.Remove(name);
         CarEvents.Passenger.Exited?.Invoke(name);
+        CarEvents.EndInteraction?.Invoke();
     }
 }

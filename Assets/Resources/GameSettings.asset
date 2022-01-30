@@ -20,14 +20,21 @@ MonoBehaviour:
   - 0.5
   - 0.7
   - 0.8
-  PassengerNames:
-  - Carol
-  - Rosie
-  - Salima
-  - Harvey
-  - Chuck
-  - Peter
-  DistanceToAlertApproachingCharacter: 100
+  Passengers:
+  - Name: Carol
+    Avatar: {fileID: 21300000, guid: f1351f35a2d154f819e1f97450d3e318, type: 3}
+  - Name: Chuck
+    Avatar: {fileID: 21300000, guid: 6c058befd9a07453fbe3be771bd6754d, type: 3}
+  - Name: Harvey
+    Avatar: {fileID: 21300000, guid: eb7104cefc2914f41bd10b887fdc63ce, type: 3}
+  - Name: Peter
+    Avatar: {fileID: 21300000, guid: 2e5bd945e4514491fa7406b60f80109c, type: 3}
+  - Name: Rosie
+    Avatar: {fileID: 21300000, guid: cb6215be6bf5341abbda0cf961310606, type: 3}
+  - Name: Salima
+    Avatar: {fileID: 21300000, guid: accad7cdb0e9043cba2ba488c2f78d96, type: 3}
+  DistanceToAlertApproachingCharacter: 70
+  DistanceFromCharacterToStop: 2.5
   _startingDistanceToFerryMeters: 5000
   _vegetationPlaneMargin: 0.05
   _minVegetationPerPlane: 10

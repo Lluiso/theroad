@@ -26,4 +26,4 @@ MonoBehaviour:
   LeaveCarDialogue:
   - CharacterName: Harvey
     Message: Fuck You!
-    MessageBoxType: 0
+    MessageBoxType: 2

@@ -21,6 +21,7 @@ public class CharacterDialogues
 
         CarEvents.Passenger.Entered += AddPassenger;
         CarEvents.Passenger.Exited += RemovePassenger;
+        CarEvents.Passenger.Rejected += (_) => CarEvents.EndInteraction();
     }
 
     public BaseDialogues GetDialogueForCharacter(string name)
