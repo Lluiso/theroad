@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +18,10 @@ public class GameSettings : ScriptableObject
 	[Range(0f, 1f)]
 	[SerializeField]
 	private float _forceSkylightProgress;
+
+	[Header("Passengers")] public List<float> PassengerSpawnPoints;
+	public List<string> PassengerNames;
+	public float DistanceToAlertApproachingCharacter;
 
 	[Header("Starting values")]
 	[SerializeField]

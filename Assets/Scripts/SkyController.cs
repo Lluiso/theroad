@@ -35,7 +35,7 @@ public class SkyController : MonoBehaviour
 		}
 		else
 		{
-			progressToFerry = TerrainGenerator.ProgressToFerry;
+			progressToFerry = TrackGenerator.ProgressToFerry;
 		}
 		UpdateLights();
 	}
