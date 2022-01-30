@@ -131,6 +131,7 @@ public class UI_DialogueDisplay : MonoBehaviour
     {
         Time.timeScale = _slowDownSpeed;
         bool canIgnore = true;
+        Action ignoredEvent = null;
         DecisionButton_Ignore ignoreButton = null;
         _context = new Dictionary<int, string>();
         int index = 0;
@@ -161,6 +162,7 @@ public class UI_DialogueDisplay : MonoBehaviour
                     // todo scope
                     // todo figure out if we want some over-arching resolution if you ignore the event
                     ignoreButton = Instantiate(_ignoreButton, _decisionButtonParent.transform).GetComponent<DecisionButton_Ignore>();
+                    ignoredEvent = () => OnButtonPress(null, indexCopy);
                     ignoreButton.Set(() => OnButtonPress(null, indexCopy), "Ignore");
                     _currentGameObjects.Add(ignoreButton.gameObject);
                     break;
@@ -176,21 +178,17 @@ public class UI_DialogueDisplay : MonoBehaviour
                 ignoreButton.SetTimer(progress);
                 yield return null;
             }
-            Continue();
-            StartCoroutine(CleanUp(0f));
+            if (!_decisionMade)
+            {
+                ignoredEvent?.Invoke();
+            }
         }
-    }
-
-    private void Continue()
-    {
-        _decisionMade = true;
-        Time.timeScale = 1f;
     }
 
     private void OnButtonPress(Action<string> call, int index)
     {
         Debug.Log(index);
-        if (_context.ContainsKey(index))
+        if (call != null && _context.ContainsKey(index))
         {
             var context = _context[index];
             call?.Invoke(context);
@@ -205,7 +203,10 @@ public class UI_DialogueDisplay : MonoBehaviour
 
     private IEnumerator CleanUp(float delay = 0.5f)
     {
-        yield return new WaitForSeconds(delay);
+        if (delay > 0f)
+        {
+            yield return new WaitForSeconds(delay);
+        }
         ClearMessages();
     }
 }
