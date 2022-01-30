@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 894bcbd8e2d0c41f78446c3414af8ab5, type: 3}
-  m_Name: CharacterDialogue_Steve
+  m_Name: _CharacterDialogue_Steve
   m_EditorClassIdentifier: 
   CharacterName: Steve
   HitchhikeDialogue:

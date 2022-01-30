@@ -16,16 +16,27 @@ public class Car : MonoBehaviour
 
         CarEvents.AddPassenger = AddPassenger;
         CarEvents.RemovePassenger = RemovePassenger;
+        // hack - get things moving
+        GameEvents.StartGame += CarEvents.EndInteraction;
+
+        TrackGenerator.OnPassengerApproaching += GoToHitchhikeMode;
     }
+
+    //private void Start()
+    //{
+    //    CarEvents.EndInteraction?.Invoke();
+    //}
 
     public void GoToHitchhikeMode(string passengerToPickUp)
     {
         CarEvents.Passenger.SlowingToPickUp?.Invoke(passengerToPickUp);
+        StartCoroutine(DelayToSlow(1f, passengerToPickUp));
     }
 
-    public void StopAtPassenger(string passengerToPickUp)
+    private IEnumerator DelayToSlow(float delay, string passengerToPickUp)
     {
-        CarEvents.Passenger.StoppedAt?.Invoke(passengerToPickUp);
+        yield return new WaitForSeconds(delay);
+        CarEvents.Passenger.DelayedSlowingToPickUp?.Invoke(passengerToPickUp);
     }
 
     private void AddPassenger(string name)
@@ -36,6 +47,7 @@ public class Car : MonoBehaviour
         }
         Passengers.Add(name);
         CarEvents.Passenger.Entered?.Invoke(name);
+        CarEvents.EndInteraction?.Invoke();
     }
 
     private void RemovePassenger(string name)
@@ -46,5 +58,6 @@ public class Car : MonoBehaviour
         }
         Passengers.Remove(name);
         CarEvents.Passenger.Exited?.Invoke(name);
+        CarEvents.EndInteraction?.Invoke();
     }
 }

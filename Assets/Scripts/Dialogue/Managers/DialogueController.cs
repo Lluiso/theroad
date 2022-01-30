@@ -27,7 +27,8 @@ public static class DialogueController
         CarEvents.Passenger.Entered += OnPassengerEntered;
         CarEvents.Passenger.Exited += OnPassengerExited;
         CarEvents.Passenger.Rejected += OnPassengerExited;
-        CarEvents.Passenger.SlowingToPickUp += OnSlowToPickUp;
+        //CarEvents.Passenger.SlowingToPickUp += OnSlowToPickUp;
+        CarEvents.Passenger.DelayedSlowingToPickUp += OnSlowToPickUp;
         CarEvents.Passenger.StoppedAt += OnStoppedAt;
     }
 

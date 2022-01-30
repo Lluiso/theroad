@@ -16,7 +16,6 @@ public class UI_DialogueDisplay : MonoBehaviour
     [SerializeField] private int _maxWordCount = 15;
     [SerializeField] private float _maxWordTime = 3f;
     [SerializeField] private int _maxCharsPerLine = 20;
-    [SerializeField] private float _slowDownSpeed = 0.1f;
     [SerializeField] private float _timeAvailableForDecision = 5f;
     private bool _decisionMade;
     private Dictionary<int, string> _context = new Dictionary<int, string>();
@@ -29,6 +28,8 @@ public class UI_DialogueDisplay : MonoBehaviour
         public DialogueMessage.MessageType Type;
         public GameObject LeftMessagePrefab;
         public GameObject RightMessagePrefab;
+        [TextArea]
+        public string Format = "<size=40><color=#BC7B57>{0}</color></size>{1}";
     }
 
     private void Awake()
@@ -52,7 +53,7 @@ public class UI_DialogueDisplay : MonoBehaviour
         _context.Clear();
     }
 
-    private string FormatMessage(DialogueMessage message)
+    private string FormatMessage(DialogueMessage message, DialogueBox box)
     {
         var formattedMessage = message.Message;
         if (message.Message.Length > _maxCharsPerLine)
@@ -82,7 +83,7 @@ public class UI_DialogueDisplay : MonoBehaviour
             }
             formattedMessage = newStr;
         }
-        return $"<b>{message.CharacterName}</b>\n{formattedMessage}";
+        return string.Format(box.Format, message.CharacterName, formattedMessage);
     }
 
     private float GetMessageDelay(DialogueMessage message)
@@ -94,6 +95,11 @@ public class UI_DialogueDisplay : MonoBehaviour
 
     private IEnumerator ShowDialogueMessages(Dialogue dialogue, DialogueEvents.Choice[] choices)
     {
+        if (choices != null)
+        {
+            // some sort of interaction
+            CarEvents.StartInteraction?.Invoke();
+        }
         _decisionMade = false;
         var lastCharacterToSpeak = dialogue.DialogueMessages.First().CharacterName;
         bool isRight = false;
@@ -113,7 +119,7 @@ public class UI_DialogueDisplay : MonoBehaviour
             }
             var prefab = isRight ? box.RightMessagePrefab : box.LeftMessagePrefab;
             var go = Instantiate(prefab, _dialogueParent);
-            go.GetComponent<UI_Message>().Set(FormatMessage(message), isRight);
+            go.GetComponent<UI_Message>().Set(FormatMessage(message, box), isRight);
             _currentGameObjects.Add(go);
             yield return new WaitForSeconds(GetMessageDelay(message));
         }
@@ -123,76 +129,78 @@ public class UI_DialogueDisplay : MonoBehaviour
         }
         else
         {
-            StartCoroutine(CleanUp());
+            ClearMessages();
         }
     }
 
     private IEnumerator ShowDecisionButtons(DialogueEvents.Choice[] choices)
     {
-        Time.timeScale = _slowDownSpeed;
-        var t = Instantiate(_decisionButtonParent, _dialogueParent).GetComponent<Transform>();
-        _currentGameObjects.Add(t.gameObject);
         bool canIgnore = true;
+        Action ignoredEvent = null;
         DecisionButton_Ignore ignoreButton = null;
         _context = new Dictionary<int, string>();
         int index = 0;
         foreach (var c in choices)
         {
             index++;
+            int indexCopy = index;
             _context.Add(index, c.Context);
             switch (c.Resolution)
             {
                 case DialogueEvents.ResolutionType.Accept:
-                    var acceptButton = Instantiate(_decisionButton, t).GetComponent<DecisionButton>();
-                    acceptButton.Set(() => OnButtonPress(CarEvents.AddPassenger, index), "Accept");
+                    var acceptButton = Instantiate(_decisionButton, _decisionButtonParent.transform).GetComponent<DecisionButton>();
+                    acceptButton.Set(() => OnButtonPress(CarEvents.AddPassenger, indexCopy), "Accept");
+                    _currentGameObjects.Add(acceptButton.gameObject);
                     break;
                 case DialogueEvents.ResolutionType.KickOutCar:
-                    var kickOutButton = Instantiate(_decisionButton, t).GetComponent<DecisionButton>();
-                    kickOutButton.Set(() => OnButtonPress(CarEvents.RemovePassenger, index), "Kick Out " + c.Context);
+                    var kickOutButton = Instantiate(_decisionButton, _decisionButtonParent.transform).GetComponent<DecisionButton>();
+                    kickOutButton.Set(() => OnButtonPress(CarEvents.RemovePassenger, indexCopy), "Kick Out " + c.Context);
+                    _currentGameObjects.Add(kickOutButton.gameObject);
                     break;
                 case DialogueEvents.ResolutionType.Reject:
-                    var rejectButton = Instantiate(_decisionButton, t).GetComponent<DecisionButton>();
-                    rejectButton.Set(() => OnButtonPress(CarEvents.Passenger.Exited, index), "Reject");
+                    var rejectButton = Instantiate(_decisionButton, _decisionButtonParent.transform).GetComponent<DecisionButton>();
+                    rejectButton.Set(() => OnButtonPress(CarEvents.Passenger.Rejected, indexCopy), "Reject");
+                    _currentGameObjects.Add(rejectButton.gameObject);
                     break;
                 case DialogueEvents.ResolutionType.None:
                     canIgnore = false;
                     // todo scope
                     // todo figure out if we want some over-arching resolution if you ignore the event
-                    ignoreButton = Instantiate(_ignoreButton, t).GetComponent<DecisionButton_Ignore>();
-                    ignoreButton.Set(() => OnButtonPress(null, index), "Ignore");
+                    ignoreButton = Instantiate(_ignoreButton, _decisionButtonParent.transform).GetComponent<DecisionButton_Ignore>();
+                    ignoredEvent = () => OnButtonPress(null, indexCopy);
+                    ignoreButton.Set(() => OnButtonPress(null, indexCopy), "Ignore");
+                    _currentGameObjects.Add(ignoreButton.gameObject);
                     break;
             }
         }
         var elapsed = 0f;
-        while (!canIgnore && !_decisionMade && elapsed <= _timeAvailableForDecision)
+        if (!canIgnore)
         {
-            elapsed += Time.unscaledDeltaTime;
-            var progress = elapsed / _timeAvailableForDecision;
-            ignoreButton.SetTimer(progress);
-            yield return null;
+            while (!_decisionMade && elapsed <= _timeAvailableForDecision)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                var progress = elapsed / _timeAvailableForDecision;
+                ignoreButton.SetTimer(progress);
+                yield return null;
+            }
+            if (!_decisionMade)
+            {
+                ignoredEvent?.Invoke();
+            }
         }
-        Continue();
-    }
-
-    private void Continue()
-    {
-        _decisionMade = true;
-        Time.timeScale = 1f;
     }
 
     private void OnButtonPress(Action<string> call, int index)
     {
-        Continue();
-        if (_context.ContainsKey(index))
+        Debug.Log(index);
+        if (call != null && _context.ContainsKey(index))
         {
             var context = _context[index];
             call?.Invoke(context);
         }
-    }
-
-    private IEnumerator CleanUp()
-    {
-        yield return new WaitForSeconds(1f);
-        ClearMessages();
+        else
+        {
+            CarEvents.EndInteraction?.Invoke();
+        }
     }
 }
