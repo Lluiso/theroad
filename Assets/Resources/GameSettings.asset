@@ -17,10 +17,10 @@ MonoBehaviour:
   RainStartProgress: 0.5
   PassengerSpawnPoints:
   - 0.1
-  - 0.25
+  - 0.2
   - 0.3
-  - 0.5
-  - 0.7
+  - 0.4
+  - 0.6
   - 0.8
   Passengers:
   - Name: Carol
@@ -37,6 +37,7 @@ MonoBehaviour:
     Avatar: {fileID: 21300000, guid: accad7cdb0e9043cba2ba488c2f78d96, type: 3}
   DistanceToAlertApproachingCharacter: 80
   DistanceFromCharacterToStop: 2.5
+  MinDistanceToTriggerInCarEvent: 150
   _startingDistanceToFerryMeters: 10000
   _vegetationPlaneMargin: 0.05
   _minVegetationPerPlane: 10
