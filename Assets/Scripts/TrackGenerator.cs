@@ -41,13 +41,14 @@ public class TrackGenerator : MonoBehaviour
 		{
 			ClearAndGenerate();
 		}
+		Gameover.OnTryAgain += ResetGame;
 		_standardCarSpeed = _carSpeed;
 		// start on 0 - title screen
 		_carSpeed = 0f;
 		CarEvents.StartInteraction += SlowDown;
 		CarEvents.EndInteraction += SpeedUp;
 		CarEvents.Passenger.StoppedAt += (_) => StopMoving();
-		//GameEvents.StartGame += SpeedUpSlow;
+		GameEvents.StartGame += SpeedUp;
 		if (_settings.SkipToNight)
 		{
 			distanceCovered = _settings.StartingDistanceToFerryMeters / 2;
@@ -55,7 +56,6 @@ public class TrackGenerator : MonoBehaviour
 			newPos.z -= distanceCovered;
 			transform.position = newPos;
 		}
-
 		NormalizedSpeed = () =>
 		{
 			if (_carSpeed <= 0f)
@@ -64,6 +64,14 @@ public class TrackGenerator : MonoBehaviour
 			}
 			return _carSpeed / _standardCarSpeed;
 		};
+		print("track awake done");
+	}
+
+	void ResetGame()
+	{
+		transform.position = Vector3.zero;
+		distanceCovered = 0f;
+		ProgressToFerry = 0f;
 	}
 
 	private void StopMoving()
@@ -78,6 +86,7 @@ public class TrackGenerator : MonoBehaviour
 
 	private void SpeedUp()
 	{
+		print("speed up");
 		StartCoroutine(SetSpeedTo(_carSpeed, _standardCarSpeed, 0.5f));
 	}
 
