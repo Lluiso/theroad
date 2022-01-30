@@ -39,6 +39,7 @@ public class CarResourcesController : MonoBehaviour
     public float startSpeedInKmH = 100;
 
     private DateTime endTime;
+    private DateTime initialTimeFake;
     private DateTime startTime;
 
     private DateTime lastKmCheck;
@@ -58,6 +59,9 @@ public class CarResourcesController : MonoBehaviour
     }
     void startGame()
     {
+
+        initialTimeFake = DateTime.Now.Date + new TimeSpan(24 - (totalTimeInMinutes - 2), 0, 0);
+
         DateTime now = DateTime.Now;
         endTime = now.AddMinutes(totalTimeInMinutes);
         startTime = DateTime.Now;
@@ -79,10 +83,16 @@ public class CarResourcesController : MonoBehaviour
             //watch
             TimeSpan timeToEnd = endTime - DateTime.Now;
             string timeString = string.Format("{0:00}:{1:00}", timeToEnd.Minutes, timeToEnd.Seconds);
-            watchText.text = timeString;
+
+            TimeSpan timePassed = DateTime.Now - startTime;
+            DateTime timeNowFake = initialTimeFake + new TimeSpan(timePassed.Minutes, timePassed.Seconds, 0);
+
+            string hours = timeNowFake.Hour < 10 ? "0" + timeNowFake.Hour : timeNowFake.Hour.ToString();
+            string minutes = timeNowFake.Minute < 10 ? "0" + timeNowFake.Minute : timeNowFake.Minute.ToString();
+            watchText.text = hours + ":" + minutes;
             if (DateTime.Compare(endTime, DateTime.Now) <= 0)
             {
-                watchText.text = "00:00";
+                //watchText.text = "00:00";
                 gameOver();
                 yield break;
             }
