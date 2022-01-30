@@ -11,6 +11,8 @@ public class TrackGenerator : MonoBehaviour
 	public static Action<string> OnPassengerApproaching;
 	public static Action<string> OnNextToPassenger;
 	public static float ProgressToFerry { get; private set; }
+	public static Func<float> NormalizedSpeed;
+
 	[SerializeField] private GameSettings _settings;
 	[SerializeField] private float _segmentLength;
 	[SerializeField] private float _roadSignIntervalsMeters;
@@ -45,7 +47,7 @@ public class TrackGenerator : MonoBehaviour
 		CarEvents.StartInteraction += SlowDown;
 		CarEvents.EndInteraction += SpeedUp;
 		CarEvents.Passenger.StoppedAt += (_) => StopMoving();
-		GameEvents.StartGame += SpeedUpSlow;
+		//GameEvents.StartGame += SpeedUpSlow;
 		if (_settings.SkipToNight)
 		{
 			distanceCovered = _settings.StartingDistanceToFerryMeters / 2;
@@ -53,6 +55,15 @@ public class TrackGenerator : MonoBehaviour
 			newPos.z -= distanceCovered;
 			transform.position = newPos;
 		}
+
+		NormalizedSpeed = () =>
+		{
+			if (_carSpeed <= 0f)
+			{
+				return 0f;
+			}
+			return _carSpeed / _standardCarSpeed;
+		};
 	}
 
 	private void StopMoving()

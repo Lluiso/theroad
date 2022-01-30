@@ -100,7 +100,8 @@ public class DialogueMessage
     {
         Default,
         Happy,
-        Angry
+        Angry,
+        Narrative
     }
 }
 
