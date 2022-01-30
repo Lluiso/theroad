@@ -16,14 +16,16 @@ public class Car : MonoBehaviour
 
         CarEvents.AddPassenger = AddPassenger;
         CarEvents.RemovePassenger = RemovePassenger;
+        // hack - get things moving
+        GameEvents.StartGame += CarEvents.EndInteraction;
 
         TrackGenerator.OnPassengerApproaching += GoToHitchhikeMode;
     }
 
-    private void Start()
-    {
-        CarEvents.EndInteraction?.Invoke();
-    }
+    //private void Start()
+    //{
+    //    CarEvents.EndInteraction?.Invoke();
+    //}
 
     public void GoToHitchhikeMode(string passengerToPickUp)
     {

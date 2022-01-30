@@ -7,6 +7,8 @@ public class CameraTransition : MonoBehaviour
     [SerializeField]
     private Transform _camera;
     [SerializeField]
+    private Transform _startTransform;
+    [SerializeField]
     private Transform _cinematicTransform;
     [SerializeField]
     private Transform _standardTransfrom;
@@ -21,8 +23,8 @@ public class CameraTransition : MonoBehaviour
         CarEvents.StartInteraction += GoToStandard;
         CarEvents.EndInteraction += GoToCinematic;
 
-        _camera.position = _standardTransfrom.position;
-        _camera.rotation = _standardTransfrom.rotation;
+        _camera.position = _startTransform.position;
+        _camera.rotation = _startTransform.rotation;
     }
 
     private void GoToStandard()
