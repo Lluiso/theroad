@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TeamDuaLipa;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TrackGenerator : MonoBehaviour
 {
@@ -64,14 +65,11 @@ public class TrackGenerator : MonoBehaviour
 			}
 			return _carSpeed / _standardCarSpeed;
 		};
-		print("track awake done");
 	}
 
 	void ResetGame()
 	{
-		transform.position = Vector3.zero;
-		distanceCovered = 0f;
-		ProgressToFerry = 0f;
+		SceneManager.LoadScene(0);
 	}
 
 	private void StopMoving()
@@ -86,7 +84,6 @@ public class TrackGenerator : MonoBehaviour
 
 	private void SpeedUp()
 	{
-		print("speed up");
 		StartCoroutine(SetSpeedTo(_carSpeed, _standardCarSpeed, 0.5f));
 	}
 
