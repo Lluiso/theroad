@@ -699,6 +699,8 @@ MonoBehaviour:
   _track: {fileID: 1251552750130800335}
   _ac: {fileID: 12382111}
   _maxPassengers: 4
+  _gameSettings: {fileID: 11400000, guid: 48f8d33704b89464385c0d2a3012ac43, type: 2}
+  _inCarEventPollRate: 3
 --- !u!95 &12382111
 Animator:
   serializedVersion: 3

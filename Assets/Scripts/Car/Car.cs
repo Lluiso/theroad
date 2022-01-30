@@ -20,12 +20,12 @@ private float _inCarEventPollRate = 3;
 	{
 		// lazy exposing of max :)
 		MaxPassengers = _maxPassengers;
-		CarEvents.AddPassenger = AddPassenger;
+		CarEvents.AddPassenger = SetupDilemma;
 		CarEvents.RemovePassenger = RemovePassenger;
-		// hack - get things moving
-		GameEvents.StartGame += CarEvents.EndInteraction;
+		GameEvents.StartGame += OnGameStarted;
 		TrackGenerator.OnPassengerApproaching += GoToHitchhikeMode;
-        
+
+
         CarEvents.MovingOff += ProcessPassengers;
         StartCoroutine(PollForCarEvent());
 	}
@@ -42,8 +42,15 @@ private float _inCarEventPollRate = 3;
             }
         }
     }
-    
-    private void SetupDilemma(string newPassenger)
+
+	private void OnGameStarted()
+	{
+		// hack - get things moving
+		CarEvents.EndInteraction?.Invoke();
+	}
+
+
+	private void SetupDilemma(string newPassenger)
     {
         var newPass = new List<string>() { newPassenger };
         CarEvents.ShowDilemma(Passengers, newPass);
