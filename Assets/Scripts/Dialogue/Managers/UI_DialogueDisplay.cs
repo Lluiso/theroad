@@ -137,22 +137,23 @@ public class UI_DialogueDisplay : MonoBehaviour
         foreach (var c in choices)
         {
             index++;
+            int indexCopy = index;
             _context.Add(index, c.Context);
             switch (c.Resolution)
             {
                 case DialogueEvents.ResolutionType.Accept:
                     var acceptButton = Instantiate(_decisionButton, _decisionButtonParent.transform).GetComponent<DecisionButton>();
-                    acceptButton.Set(() => OnButtonPress(CarEvents.AddPassenger, index), "Accept");
+                    acceptButton.Set(() => OnButtonPress(CarEvents.AddPassenger, indexCopy), "Accept");
                     _currentGameObjects.Add(acceptButton.gameObject);
                     break;
                 case DialogueEvents.ResolutionType.KickOutCar:
                     var kickOutButton = Instantiate(_decisionButton, _decisionButtonParent.transform).GetComponent<DecisionButton>();
-                    kickOutButton.Set(() => OnButtonPress(CarEvents.RemovePassenger, index), "Kick Out " + c.Context);
+                    kickOutButton.Set(() => OnButtonPress(CarEvents.RemovePassenger, indexCopy), "Kick Out " + c.Context);
                     _currentGameObjects.Add(kickOutButton.gameObject);
                     break;
                 case DialogueEvents.ResolutionType.Reject:
                     var rejectButton = Instantiate(_decisionButton, _decisionButtonParent.transform).GetComponent<DecisionButton>();
-                    rejectButton.Set(() => OnButtonPress(CarEvents.Passenger.Exited, index), "Reject");
+                    rejectButton.Set(() => OnButtonPress(CarEvents.Passenger.Exited, indexCopy), "Reject");
                     _currentGameObjects.Add(rejectButton.gameObject);
                     break;
                 case DialogueEvents.ResolutionType.None:
@@ -160,7 +161,7 @@ public class UI_DialogueDisplay : MonoBehaviour
                     // todo scope
                     // todo figure out if we want some over-arching resolution if you ignore the event
                     ignoreButton = Instantiate(_ignoreButton, _decisionButtonParent.transform).GetComponent<DecisionButton_Ignore>();
-                    ignoreButton.Set(() => OnButtonPress(null, index), "Ignore");
+                    ignoreButton.Set(() => OnButtonPress(null, indexCopy), "Ignore");
                     _currentGameObjects.Add(ignoreButton.gameObject);
                     break;
             }
@@ -176,6 +177,7 @@ public class UI_DialogueDisplay : MonoBehaviour
                 yield return null;
             }
             Continue();
+            StartCoroutine(CleanUp(0f));
         }
     }
 
@@ -183,18 +185,23 @@ public class UI_DialogueDisplay : MonoBehaviour
     {
         _decisionMade = true;
         Time.timeScale = 1f;
-        StartCoroutine(CleanUp(0f));
     }
 
     private void OnButtonPress(Action<string> call, int index)
     {
-        Continue();
+        Debug.Log(index);
         if (_context.ContainsKey(index))
         {
             var context = _context[index];
             call?.Invoke(context);
         }
+        else
+        {
+            StartCoroutine(CleanUp(0f));
+        }
+        Time.timeScale = 1f;
     }
+
 
     private IEnumerator CleanUp(float delay = 0.5f)
     {
