@@ -130,8 +130,6 @@ public class UI_DialogueDisplay : MonoBehaviour
     private IEnumerator ShowDecisionButtons(DialogueEvents.Choice[] choices)
     {
         Time.timeScale = _slowDownSpeed;
-        var t = Instantiate(_decisionButtonParent, _dialogueParent).GetComponent<Transform>();
-        _currentGameObjects.Add(t.gameObject);
         bool canIgnore = true;
         DecisionButton_Ignore ignoreButton = null;
         _context = new Dictionary<int, string>();
@@ -143,41 +141,49 @@ public class UI_DialogueDisplay : MonoBehaviour
             switch (c.Resolution)
             {
                 case DialogueEvents.ResolutionType.Accept:
-                    var acceptButton = Instantiate(_decisionButton, t).GetComponent<DecisionButton>();
+                    var acceptButton = Instantiate(_decisionButton, _decisionButtonParent.transform).GetComponent<DecisionButton>();
                     acceptButton.Set(() => OnButtonPress(CarEvents.AddPassenger, index), "Accept");
+                    _currentGameObjects.Add(acceptButton.gameObject);
                     break;
                 case DialogueEvents.ResolutionType.KickOutCar:
-                    var kickOutButton = Instantiate(_decisionButton, t).GetComponent<DecisionButton>();
+                    var kickOutButton = Instantiate(_decisionButton, _decisionButtonParent.transform).GetComponent<DecisionButton>();
                     kickOutButton.Set(() => OnButtonPress(CarEvents.RemovePassenger, index), "Kick Out " + c.Context);
+                    _currentGameObjects.Add(kickOutButton.gameObject);
                     break;
                 case DialogueEvents.ResolutionType.Reject:
-                    var rejectButton = Instantiate(_decisionButton, t).GetComponent<DecisionButton>();
+                    var rejectButton = Instantiate(_decisionButton, _decisionButtonParent.transform).GetComponent<DecisionButton>();
                     rejectButton.Set(() => OnButtonPress(CarEvents.Passenger.Exited, index), "Reject");
+                    _currentGameObjects.Add(rejectButton.gameObject);
                     break;
                 case DialogueEvents.ResolutionType.None:
                     canIgnore = false;
                     // todo scope
                     // todo figure out if we want some over-arching resolution if you ignore the event
-                    ignoreButton = Instantiate(_ignoreButton, t).GetComponent<DecisionButton_Ignore>();
+                    ignoreButton = Instantiate(_ignoreButton, _decisionButtonParent.transform).GetComponent<DecisionButton_Ignore>();
                     ignoreButton.Set(() => OnButtonPress(null, index), "Ignore");
+                    _currentGameObjects.Add(ignoreButton.gameObject);
                     break;
             }
         }
         var elapsed = 0f;
-        while (!canIgnore && !_decisionMade && elapsed <= _timeAvailableForDecision)
+        if (!canIgnore)
         {
-            elapsed += Time.unscaledDeltaTime;
-            var progress = elapsed / _timeAvailableForDecision;
-            ignoreButton.SetTimer(progress);
-            yield return null;
+            while (!_decisionMade && elapsed <= _timeAvailableForDecision)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                var progress = elapsed / _timeAvailableForDecision;
+                ignoreButton.SetTimer(progress);
+                yield return null;
+            }
+            Continue();
         }
-        Continue();
     }
 
     private void Continue()
     {
         _decisionMade = true;
         Time.timeScale = 1f;
+        StartCoroutine(CleanUp(0f));
     }
 
     private void OnButtonPress(Action<string> call, int index)
@@ -190,9 +196,9 @@ public class UI_DialogueDisplay : MonoBehaviour
         }
     }
 
-    private IEnumerator CleanUp()
+    private IEnumerator CleanUp(float delay = 0.5f)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(delay);
         ClearMessages();
     }
 }
