@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   _forceSkylightProgress: 0
-  SkipToNight: 1
+  SkipToNight: 0
   RainStartProgress: 0.5
   PassengerSpawnPoints:
   - 0.1
