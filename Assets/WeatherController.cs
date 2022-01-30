@@ -18,6 +18,11 @@ public class WeatherController : MonoBehaviour
 	[SerializeField] private float _maxRainModifier;
 	[SerializeField] private float _minRainEmission;
 	[SerializeField] private float _maxRainEmission;
+	[SerializeField] private float _thunderIntervalMin;
+	[SerializeField] private float _thunderIntervalMax;
+	private float _thunderInterval;
+
+	private float nextThunderTime = 0f;
 
 	[Header("Camera shake")]
 	[SerializeField]
@@ -38,6 +43,12 @@ public class WeatherController : MonoBehaviour
 	{
 		if (TrackGenerator.ProgressToFerry > _settings.RainStartProgress)
 		{
+			if (Time.time > nextThunderTime)
+			{
+				nextThunderTime = Time.time + Random.Range(_thunderIntervalMin, _thunderIntervalMax);
+				;
+				SpawnThunder();
+			}
 			if (_rainSounds.isPlaying == false)
 			{
 				_rainSounds.Play();

@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using TeamDuaLipa;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TrackGenerator : MonoBehaviour
 {
@@ -26,8 +28,9 @@ public class TrackGenerator : MonoBehaviour
 	[SerializeField] private float _roadLightPrefab;
 	[SerializeField] private float _roadLightsInterval;
 	[SerializeField] private float _lightX;
-	[SerializeField] private bool _generateOnAwake;
+	[SerializeField] private bool _generateOnAwake = true;
 	[SerializeField] private List<Transform> _passengers = new List<Transform>();
+	private List<Transform> _spawnedSegments = new List<Transform>();
 	private int _numberOfSectionsToGenerate;
 	private Transform _roadSegmentsParent;
 	private float distanceCovered = 0f;
@@ -42,14 +45,14 @@ public class TrackGenerator : MonoBehaviour
 		{
 			ClearAndGenerate();
 		}
+		Gameover.OnTryAgain += ResetGame;
 		_standardCarSpeed = _carSpeed;
 		// start on 0 - title screen
 		_carSpeed = 0f;
-
 		CarEvents.StartInteraction += SlowDown;
 		CarEvents.EndInteraction += SpeedUp;
 		CarEvents.Passenger.StoppedAt += (_) => StopMoving();
-		//GameEvents.StartGame += SpeedUpSlow;
+		GameEvents.StartGame += SpeedUp;
 		if (_settings.SkipToNight)
 		{
 			distanceCovered = _settings.StartingDistanceToFerryMeters / 2;
@@ -57,7 +60,6 @@ public class TrackGenerator : MonoBehaviour
 			newPos.z -= distanceCovered;
 			transform.position = newPos;
 		}
-
 		NormalizedSpeed = () =>
 		{
 			if (_carSpeed <= 0f)
@@ -68,6 +70,11 @@ public class TrackGenerator : MonoBehaviour
 		};
 
 		DistanceToNextPassenger = GetDistanceToNextPassenger;
+	}
+
+	void ResetGame()
+	{
+		SceneManager.LoadScene(0);
 	}
 
 	private void StopMoving()
@@ -120,6 +127,7 @@ public class TrackGenerator : MonoBehaviour
 		MoveTrack();
 		CheckForApproachingPassenger();
 		CheckForIsNextToPassenger();
+		CheckForObjectVisibility();
 	}
 
 	private void CheckForApproachingPassenger()
@@ -203,6 +211,26 @@ public class TrackGenerator : MonoBehaviour
 		SpawnPassengers();
 	}
 
+	void CheckForObjectVisibility()
+	{
+		foreach (var segment in _spawnedSegments)
+		{
+			var distanceFromCar = segment.position.z - _car.position.z;
+			segment.gameObject.name = distanceFromCar.ToString();
+			if (segment.position.z < (_segmentLength * -2f))
+			{
+				segment.gameObject.name += "(behind car)";
+				segment.gameObject.SetActive(false);
+			}
+			else
+			{
+				var isInVisibleRange = segment.position.z - _car.position.z < _visibleLength;
+				segment.gameObject.name += $" isvisible: {isInVisibleRange}";
+				segment.gameObject.SetActive(isInVisibleRange);
+			}
+		}
+	}
+
 	void SpawnPassengers()
 	{
 		_passengers = new List<Transform>();
@@ -273,6 +301,7 @@ public class TrackGenerator : MonoBehaviour
 			newRoadPiece.name = $"Road section {i}";
 			newRoadPiece.transform.position = newSpawnPos;
 			newRoadPiece.transform.parent = _roadSegmentsParent;
+			_spawnedSegments.Add(newRoadPiece.transform);
 		}
 	}
 
