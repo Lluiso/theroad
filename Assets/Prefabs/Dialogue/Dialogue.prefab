@@ -133,6 +133,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2407422193153252174}
     m_Modifications:
+    - target: {fileID: 5885164731537088945, guid: 702c5a9186950422bac2f3e7c52d982a, type: 3}
+      propertyPath: _boxes.Array.data[0].Format
+      value: '<size=30><color=#BC7B57>{0}</color></size>
+
+        <color=#6A3517>{1}</color>'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885164731537088945, guid: 702c5a9186950422bac2f3e7c52d982a, type: 3}
+      propertyPath: _boxes.Array.data[1].Format
+      value: '<size=30><color=#BC5757>{0}</color></size>
+
+        <color=#6A1717>{1}</color>'
+      objectReference: {fileID: 0}
     - target: {fileID: 5885164731537088946, guid: 702c5a9186950422bac2f3e7c52d982a, type: 3}
       propertyPath: m_Pivot.x
       value: 0

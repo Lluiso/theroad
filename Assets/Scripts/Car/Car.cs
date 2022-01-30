@@ -28,6 +28,13 @@ public class Car : MonoBehaviour
     public void GoToHitchhikeMode(string passengerToPickUp)
     {
         CarEvents.Passenger.SlowingToPickUp?.Invoke(passengerToPickUp);
+        StartCoroutine(DelayToSlow(1f, passengerToPickUp));
+    }
+
+    private IEnumerator DelayToSlow(float delay, string passengerToPickUp)
+    {
+        yield return new WaitForSeconds(delay);
+        CarEvents.Passenger.DelayedSlowingToPickUp?.Invoke(passengerToPickUp);
     }
 
     private void AddPassenger(string name)
