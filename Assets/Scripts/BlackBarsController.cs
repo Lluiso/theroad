@@ -62,7 +62,7 @@ public class BlackBarsController : MonoBehaviour
         }
         _barsHidden = false;
         Debug.Log("Show Bars");
-        UICanvas.DOFade(0.2f, animationDuration * 0.5f);
+        UICanvas.DOFade(0.5f, animationDuration * 0.5f);
         topBar.DOLocalMoveY(-height, animationDuration).SetRelative();
         bottomBar.DOLocalMoveY(height, animationDuration).SetRelative();
     }
