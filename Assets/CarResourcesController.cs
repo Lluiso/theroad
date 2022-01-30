@@ -86,48 +86,44 @@ public class CarResourcesController : MonoBehaviour
 				yield break;
 			}
 
-            //gas
-            TimeSpan timeSinceLastCheck = DateTime.Now - lastKmCheck;
-            double secondsPassed = timeSinceLastCheck.TotalSeconds;
-            gasConsumed += secondsPassed + (currentPassengers * gasMultiplierPerPerson);
-            double percentageGas = (totalGasInSeconds - gasConsumed) / totalGasInSeconds;
-            //gasText.text = Mathf.Round((float)percentageGas * 100) + "%";
+			//gas
+			TimeSpan timeSinceLastCheck = DateTime.Now - lastKmCheck;
+			double secondsPassed = timeSinceLastCheck.TotalSeconds;
+			gasConsumed += secondsPassed + (currentPassengers * gasMultiplierPerPerson);
+			double percentageGas = (totalGasInSeconds - gasConsumed) / totalGasInSeconds;
+			//gasText.text = Mathf.Round((float)percentageGas * 100) + "%";
+			float kmRemaining = Mathf.Round((float)((totalGasInSeconds - gasConsumed) / 60));
+			gasText.text = kmRemaining + " Km";
+			if (totalGasInSeconds - gasConsumed <= 0)
+			{
+				gasText.text = "0 Km";
+				gameOver("We ran out of fuel...");
+				yield break;
+			}
+			//speed
+			speedText.text = Mathf.Round(startSpeedInKmH * TrackGenerator.NormalizedSpeed()) + "km/h";
+			lastKmCheck = DateTime.Now;
+			yield return new WaitForSecondsRealtime(0.1f);
+		}
+	}
 
-            float kmRemaining = Mathf.Round((float)((totalGasInSeconds - gasConsumed) / 60));
+	[Button]
+	public void addPassenger()
+	{
+		if (currentPassengers == passengerIcons.Length) return;
+		++currentPassengers;
+		updatePassengersUI();
+		updateGasIndicator();
+	}
 
-            gasText.text = kmRemaining + " Km";
-
-
-            if (totalGasInSeconds - gasConsumed <= 0)
-            {
-                gasText.text = "0 Km";
-                gameOver();
-                yield break;
-            }
-            //speed
-            speedText.text = Mathf.Round(startSpeedInKmH * TrackGenerator.NormalizedSpeed()) + "km/h";
-
-
-            lastKmCheck = DateTime.Now;
-            yield return new WaitForSecondsRealtime(0.1f);
-        }
-    }
-    [Button]
-    public void addPassenger()
-    {
-        if (currentPassengers == passengerIcons.Length) return;
-        ++currentPassengers;
-        updatePassengersUI();
-        updateGasIndicator();
-    }
-    [Button]
-    public void kickPassenger()
-    {
-        if (currentPassengers == 0) return;
-        --currentPassengers;
-        updatePassengersUI();
-        updateGasIndicator();
-    }
+	[Button]
+	public void kickPassenger()
+	{
+		if (currentPassengers == 0) return;
+		--currentPassengers;
+		updatePassengersUI();
+		updateGasIndicator();
+	}
 
 	void updatePassengersUI()
 	{
