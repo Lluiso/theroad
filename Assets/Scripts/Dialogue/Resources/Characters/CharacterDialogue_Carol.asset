@@ -15,14 +15,56 @@ MonoBehaviour:
   CharacterName: Carol
   HitchhikeDialogue:
   - CharacterName: Carol
-    Message: I'm Carol
+    Message: Please will you let me in
+    MessageBoxType: 0
+  - CharacterName: Carol
+    Message: My husband of 63 years is waiting for me
+    MessageBoxType: 0
+  - CharacterName: Carol
+    Message: I don't wanna die all alone out here
     MessageBoxType: 0
   EnterCarDialogue:
   - CharacterName: Carol
     Message: Step on it
     MessageBoxType: 0
-  InCarDialogues: []
-  StoppingDialogues: []
+  InCarDialogues:
+  - Dialogue:
+    - CharacterName: Carol
+      Message: Im being crushed!
+      MessageBoxType: 0
+    Conditions:
+      PassengerCount: 4
+      CharactersInCar: []
+    Choices: []
+  StoppingDialogues:
+  - Dialogue:
+    - CharacterName: Carol
+      Message: Poor thing, out all alone, where are her paents
+      MessageBoxType: 0
+    Conditions:
+      CharacterBeingPickedUp:
+      - Rosie
+  - Dialogue:
+    - CharacterName: Carol
+      Message: He Looks like a lovely man
+      MessageBoxType: 0
+    Conditions:
+      CharacterBeingPickedUp:
+      - Harvey
+  - Dialogue:
+    - CharacterName: Carol
+      Message: I do like a handyman
+      MessageBoxType: 0
+    Conditions:
+      CharacterBeingPickedUp:
+      - Chuck
+  - Dialogue:
+    - CharacterName: Carol
+      Message: I think it's probably best to stop...
+      MessageBoxType: 0
+    Conditions:
+      CharacterBeingPickedUp:
+      - Peter
   LeaveCarDialogue:
   - CharacterName: Carol
     Message: This would never happen back in my day!

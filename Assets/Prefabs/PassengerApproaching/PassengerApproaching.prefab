@@ -149,7 +149,7 @@ MonoBehaviour:
   _stopButton: {fileID: 7765649847668842221}
   _ignoreButton: {fileID: 7765649846969186680}
   _ignoreFill: {fileID: 7765649846286033829}
-  _interactTimeLimit: 5
+  _interactTimeLimit: 6
   _settings: {fileID: 11400000, guid: 48f8d33704b89464385c0d2a3012ac43, type: 2}
 --- !u!1 &7765649846086088594
 GameObject:
@@ -182,8 +182,8 @@ RectTransform:
   m_Father: {fileID: 4918556303466652396}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.875, y: 0.25}
-  m_AnchorMax: {x: 0.875, y: 0.25}
+  m_AnchorMin: {x: 0.875, y: 0.2}
+  m_AnchorMax: {x: 0.875, y: 0.2}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

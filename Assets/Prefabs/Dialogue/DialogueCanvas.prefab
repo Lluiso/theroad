@@ -117,13 +117,13 @@ MonoBehaviour:
   - Type: 0
     LeftMessagePrefab: {fileID: 2811429941399546455, guid: 9504949ef343e44018cade9cef52aeb8, type: 3}
     RightMessagePrefab: {fileID: 2811429941399546455, guid: a13f42527539348dba100752b7f9a683, type: 3}
-    Format: '<size=40><color=#BC7B57>{0}</color></size>
+    Format: '<size=35><color=#BC7B57>{0}</color></size>
 
       <color=#6A3517>{1}</color>'
   - Type: 2
     LeftMessagePrefab: {fileID: 613658033642443470, guid: a861061d3146444cd9204ca627bdd189, type: 3}
     RightMessagePrefab: {fileID: 613658033642443470, guid: 9610f7ba48e7649a182944fd3e36e7be, type: 3}
-    Format: '<size=40><color=#BC5757>{0}</color></size>
+    Format: '<size=35><color=#BC5757>{0}</color></size>
 
       <color=#6A1717>{1}</color>'
   _decisionButtonParent: {fileID: 6990201356305778853}
@@ -156,7 +156,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _maxWordCount: 15
   _maxWordTime: 3
-  _maxCharsPerLine: 25
+  _maxCharsPerLine: 20
   _timeAvailableForDecision: 5
 --- !u!1 &5885164731562672600
 GameObject:
@@ -201,6 +201,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5885164731562672607}
     m_Modifications:
+    - target: {fileID: 3424662568216498138, guid: 54bcf8324a30a44da857cd8b799e8abc, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647285320543584410, guid: 54bcf8324a30a44da857cd8b799e8abc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5647285322169855437, guid: 54bcf8324a30a44da857cd8b799e8abc, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -227,7 +235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5647285322169855437, guid: 54bcf8324a30a44da857cd8b799e8abc, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5647285322169855437, guid: 54bcf8324a30a44da857cd8b799e8abc, type: 3}
       propertyPath: m_SizeDelta.x

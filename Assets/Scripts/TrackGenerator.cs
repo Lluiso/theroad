@@ -40,9 +40,13 @@ public class TrackGenerator : MonoBehaviour
 			ClearAndGenerate();
 		}
 		_standardCarSpeed = _carSpeed;
+		// start on 0 - title screen
+		_carSpeed = 0f;
+
 		CarEvents.StartInteraction += SlowDown;
 		CarEvents.EndInteraction += SpeedUp;
 		CarEvents.Passenger.StoppedAt += (_) => StopMoving();
+		GameEvents.StartGame += SpeedUpSlow;
 		if (_settings.SkipToNight)
 		{
 			distanceCovered = _settings.StartingDistanceToFerryMeters / 2;
@@ -65,6 +69,11 @@ public class TrackGenerator : MonoBehaviour
 	private void SpeedUp()
 	{
 		StartCoroutine(SetSpeedTo(_carSpeed, _standardCarSpeed, 0.5f));
+	}
+
+	private void SpeedUpSlow()
+	{
+		StartCoroutine(SetSpeedTo(_carSpeed, _standardCarSpeed, 1.5f));
 	}
 
 	private IEnumerator SetSpeedTo(float from, float to, float time)

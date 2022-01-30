@@ -7,17 +7,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3679099194294740418, guid: 94a620391a04e418991642551db994af, type: 3}
-      propertyPath: m_LocalScale.x
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 7387886472349269530, guid: 94a620391a04e418991642551db994af, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.15
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7387886472349269530, guid: 94a620391a04e418991642551db994af, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7387886472349269530, guid: 94a620391a04e418991642551db994af, type: 3}
       propertyPath: m_RootOrder
@@ -98,10 +94,6 @@ PrefabInstance:
     - target: {fileID: 7387886472349269531, guid: 94a620391a04e418991642551db994af, type: 3}
       propertyPath: m_Name
       value: PassengerMessage_Left
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387886473114044030, guid: 94a620391a04e418991642551db994af, type: 3}
-      propertyPath: m_LocalScale.x
-      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94a620391a04e418991642551db994af, type: 3}
