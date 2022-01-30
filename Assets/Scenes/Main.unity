@@ -1304,6 +1304,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weather
       objectReference: {fileID: 0}
+    - target: {fileID: 9065516747935395283, guid: ab024a1e5eb72400e8531b50d8b564c7, type: 3}
+      propertyPath: _thunderInterval
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9065516747935395283, guid: ab024a1e5eb72400e8531b50d8b564c7, type: 3}
+      propertyPath: _thunderIntervalMax
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9065516747935395283, guid: ab024a1e5eb72400e8531b50d8b564c7, type: 3}
+      propertyPath: _thunderIntervalMin
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab024a1e5eb72400e8531b50d8b564c7, type: 3}
 --- !u!1 &541909803
@@ -4036,6 +4048,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 135233324, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176855434, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1290961401, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571775380, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737014574, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988847734, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1251552748643633584, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -4083,6 +4119,26 @@ PrefabInstance:
     - target: {fileID: 1251552748643633591, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
       propertyPath: m_Name
       value: World
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251552749191325898, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_Intensity
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251552749191325899, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5984102
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251552749191325899, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.20740835
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251552749191325899, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.69039273
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251552749191325899, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.34963545
       objectReference: {fileID: 0}
     - target: {fileID: 1251552750535960905, guid: 24890ad911f094201aa9b5627b62cb43, type: 3}
       propertyPath: m_LocalRotation.w
