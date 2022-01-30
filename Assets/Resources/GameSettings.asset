@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6035840d7952841acb053273acd3e86e, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  _forceSkylightProgress: 1
+  _forceSkylightProgress: 0.086
   PassengerSpawnPoints:
   - 0.1
   - 0.25

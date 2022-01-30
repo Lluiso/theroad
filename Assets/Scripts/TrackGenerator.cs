@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class TrackGenerator : MonoBehaviour
 {
+	public float CarSpeed => _carSpeed;
 	public static Action<string> OnPassengerApproaching;
 	public static float ProgressToFerry { get; private set; }
 	[SerializeField] private GameSettings _settings;
