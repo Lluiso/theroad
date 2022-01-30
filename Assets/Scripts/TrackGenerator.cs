@@ -23,7 +23,7 @@ public class TrackGenerator : MonoBehaviour
 	[SerializeField] private float _roadLightPrefab;
 	[SerializeField] private float _roadLightsInterval;
 	[SerializeField] private float _lightX;
-	[SerializeField] private bool _generateOnAwake;
+	[SerializeField] private bool _generateOnAwake = true;
 	[SerializeField] private List<Transform> _passengers = new List<Transform>();
 	private int _numberOfSectionsToGenerate;
 	private Transform _roadSegmentsParent;
@@ -42,7 +42,6 @@ public class TrackGenerator : MonoBehaviour
 		_standardCarSpeed = _carSpeed;
 		// start on 0 - title screen
 		_carSpeed = 0f;
-
 		CarEvents.StartInteraction += SlowDown;
 		CarEvents.EndInteraction += SpeedUp;
 		CarEvents.Passenger.StoppedAt += (_) => StopMoving();
