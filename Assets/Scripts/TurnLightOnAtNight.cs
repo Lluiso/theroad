@@ -19,7 +19,7 @@ public class TurnLightOnAtNight : MonoBehaviour
 		{
 			_light = GetComponent<Light>();
 		}
-		SetLightsEnabled(TerrainGenerator.ProgressToFerry > _settings.ProgressForLightsOn);
+		SetLightsEnabled(TrackGenerator.ProgressToFerry > _settings.ProgressForLightsOn);
 	}
 
 	void SetLightsEnabled(bool isEnabled)
