@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class SkyController : MonoBehaviour
 {
+	public static float NightProgress { get; private set; }
 	[Header("Sun")] [SerializeField] private Material _sunlightMaterial;
 	[SerializeField] private Light _sunlightDirectional;
 
@@ -26,6 +28,28 @@ public class SkyController : MonoBehaviour
 	[SerializeField] private bool _updateInEditMode;
 	private float progressOverride => _gameSettings.ForceSkyLightProgress;
 	private float progressToFerry = 0f;
+	private bool isLightUpdatePaused = false;
+
+	private void Awake()
+	{
+		Thunder.OnThunderStart += OnThunderStart;
+	}
+
+	private void OnThunderStart()
+	{
+		StartCoroutine(LightningFlash());
+	}
+
+	IEnumerator LightningFlash()
+	{
+		float startingIntensity = _moonlightDirectional.intensity;
+		isLightUpdatePaused = true;
+		yield return new WaitForSeconds(0.2f);
+		_moonlightDirectional.intensity = 10f;
+		yield return new WaitForSeconds(0.1f);
+		_moonlightDirectional.intensity = startingIntensity;
+		isLightUpdatePaused = false;
+	}
 
 	void Update()
 	{
@@ -42,6 +66,11 @@ public class SkyController : MonoBehaviour
 
 	void UpdateLights()
 	{
+		// might be doing flash
+		if (isLightUpdatePaused)
+		{
+			return;
+		}
 		SetLightSettings();
 		SetSunProgress();
 		SetMoonProgress();
@@ -66,13 +95,13 @@ public class SkyController : MonoBehaviour
 
 	void SetMoonProgress()
 	{
-		float nightProgress = Mathf.Lerp(0f, 1f, (progressToFerry - 0.5f) / 0.5f);
-		var newColor = Color.Lerp(_startColor, _endColor, nightProgress);
+		NightProgress = Mathf.Lerp(0f, 1f, (progressToFerry - 0.5f) / 0.5f);
+		var newColor = Color.Lerp(_startColor, _endColor, NightProgress);
 		_moonlightMaterial.SetColor("_SkyColor", newColor);
-		_moonlightMaterial.SetFloat("_Brightness", _maxContrast * nightProgress);
-		_moonlightDirectional.intensity = _minLightIntesity + (_maxLightIntesity - _minLightIntesity) * nightProgress;
+		_moonlightMaterial.SetFloat("_Brightness", _maxContrast * NightProgress);
+		_moonlightDirectional.intensity = _minLightIntesity + (_maxLightIntesity - _minLightIntesity) * NightProgress;
 		var moonLightRotation =
-			Quaternion.Lerp(_moonLightStartRotation.rotation, _moonlightEndRotation.rotation, nightProgress);
+			Quaternion.Lerp(_moonLightStartRotation.rotation, _moonlightEndRotation.rotation, NightProgress);
 		_moon.rotation = moonLightRotation;
 	}
 }

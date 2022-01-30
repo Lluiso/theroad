@@ -19,6 +19,10 @@ public class GameSettings : ScriptableObject
 	[SerializeField]
 	private float _forceSkylightProgress;
 
+	public bool SkipToNight;
+
+	[Header("Weather")] public float RainStartProgress;
+
 	[Header("Passengers")] public List<float> PassengerSpawnPoints;
 	public List<Passenger> Passengers;
 	public float DistanceToAlertApproachingCharacter;
@@ -43,8 +47,8 @@ public class GameSettings : ScriptableObject
 
 	[System.Serializable]
 	public class Passenger
-    {
+	{
 		public string Name;
 		public Sprite Avatar;
-    }
+	}
 }

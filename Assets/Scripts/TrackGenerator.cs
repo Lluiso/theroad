@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class TrackGenerator : MonoBehaviour
 {
+	public float CarSpeed => _carSpeed;
 	public static Action<string> OnPassengerApproaching;
 	public static Action<string> OnNextToPassenger;
 	public static float ProgressToFerry { get; private set; }
@@ -46,20 +47,27 @@ public class TrackGenerator : MonoBehaviour
 		CarEvents.EndInteraction += SpeedUp;
 		CarEvents.Passenger.StoppedAt += (_) => StopMoving();
 		GameEvents.StartGame += SpeedUpSlow;
+		if (_settings.SkipToNight)
+		{
+			distanceCovered = _settings.StartingDistanceToFerryMeters / 2;
+			var newPos = transform.position;
+			newPos.z -= distanceCovered;
+			transform.position = newPos;
+		}
 	}
 
 	private void StopMoving()
-    {
+	{
 		StartCoroutine(SetSpeedTo(_carSpeed, 0f, 1f));
-    }
+	}
 
 	private void SlowDown()
-    {
+	{
 		StartCoroutine(SetSpeedTo(_carSpeed, _standardCarSpeed * 0.2f, 0.5f));
 	}
 
 	private void SpeedUp()
-    {
+	{
 		StartCoroutine(SetSpeedTo(_carSpeed, _standardCarSpeed, 0.5f));
 	}
 
@@ -69,17 +77,17 @@ public class TrackGenerator : MonoBehaviour
 	}
 
 	private IEnumerator SetSpeedTo(float from, float to, float time)
-    {
+	{
 		var elapsed = 0f;
 		while (elapsed < time)
-        {
+		{
 			elapsed += Time.deltaTime;
 			var speed = Mathf.Lerp(from, to, elapsed / time);
 			_carSpeed = speed;
 			yield return null;
-        }
+		}
 		_carSpeed = to;
-    }
+	}
 
 	public void ClearTrack()
 	{
@@ -137,7 +145,7 @@ public class TrackGenerator : MonoBehaviour
 			nextPassenger = passenger;
 			distanceToNextCharacter = passenger.transform.position.z - _car.position.z;
 			if (lastPassengerNextToAlertFired != nextPassenger.gameObject.name &&
-				distanceToNextCharacter <= _settings.DistanceFromCharacterToStop)
+			    distanceToNextCharacter <= _settings.DistanceFromCharacterToStop)
 			{
 				var passengerName = nextPassenger.gameObject.name;
 				lastPassengerNextToAlertFired = passengerName;
@@ -172,7 +180,8 @@ public class TrackGenerator : MonoBehaviour
 		List<string> _spawnedPassengerNames = new List<string>();
 		foreach (var spawnPointPercentage in _settings.PassengerSpawnPoints)
 		{
-			var namesRemaining = _settings.Passengers.Where(n => _spawnedPassengerNames.Contains(n.Name) == false).Select(p => p.Name);
+			var namesRemaining = _settings.Passengers.Where(n => _spawnedPassengerNames.Contains(n.Name) == false)
+				.Select(p => p.Name);
 			var randomName = namesRemaining.Random();
 			_spawnedPassengerNames.Add(randomName);
 			var newGO = Instantiate(_passengerPrefab, container);

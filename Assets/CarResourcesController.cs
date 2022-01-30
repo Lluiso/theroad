@@ -92,11 +92,16 @@ public class CarResourcesController : MonoBehaviour
             double secondsPassed = timeSinceLastCheck.TotalSeconds;
             gasConsumed += secondsPassed + (currentPassengers * gasMultiplierPerPerson);
             double percentageGas = (totalGasInSeconds - gasConsumed) / totalGasInSeconds;
-            gasText.text = Mathf.Round((float)percentageGas * 100) + "%";
+            //gasText.text = Mathf.Round((float)percentageGas * 100) + "%";
+
+            float kmRemaining = Mathf.Round((float)((totalGasInSeconds - gasConsumed) / 60));
+
+            gasText.text = kmRemaining + " Km";
+
 
             if (totalGasInSeconds - gasConsumed <= 0)
             {
-                gasText.text = "0%";
+                gasText.text = "0 Km";
                 gameOver();
                 yield break;
             }
