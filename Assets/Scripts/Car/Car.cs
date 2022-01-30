@@ -24,7 +24,7 @@ public class Car : MonoBehaviour
 
 	private void Update()
 	{
-		_ac.SetFloat("speed", _track.CarSpeed);
+		_ac.SetFloat("speed", TrackGenerator.NormalizedSpeed());
 	}
 
 	public void GoToHitchhikeMode(string passengerToPickUp)
