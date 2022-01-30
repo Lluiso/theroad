@@ -15,15 +15,32 @@ MonoBehaviour:
   CharacterName: Peter
   HitchhikeDialogue:
   - CharacterName: Peter
-    Message: I'm Peter
+    Message: Thank the lord, good samaritan.
+    MessageBoxType: 0
+  - CharacterName: Peter
+    Message: I have devoted my life to helping the less fortunate and I truly believe
+      that path has led me to you.
+    MessageBoxType: 0
+  - CharacterName: Peter
+    Message: Let us go on this journey together, I am certain god has a bright future
+      in store for us.
     MessageBoxType: 0
   EnterCarDialogue:
   - CharacterName: Peter
-    Message: Peter Peter
+    Message: Praise be, may the lord bless you my saviour.
+    MessageBoxType: 0
+  - CharacterName: Peter
+    Message: I pray for our safe passage, and may god's light guide the way.
     MessageBoxType: 0
   InCarDialogues: []
   StoppingDialogues: []
   LeaveCarDialogue:
   - CharacterName: Peter
-    Message: Im not Peter FIle
-    MessageBoxType: 2
+    Message: Mark my words, god will not let this go unpunished!
+    MessageBoxType: 0
+  - CharacterName: Peter
+    Message: You will pay for your sins yee of little faith!
+    MessageBoxType: 0
+  - CharacterName: 
+    Message: Glancing back you see the priest muttering some sort of incantation.
+    MessageBoxType: 3
