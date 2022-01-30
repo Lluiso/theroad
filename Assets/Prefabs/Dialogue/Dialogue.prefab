@@ -134,6 +134,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2407422193153252174}
     m_Modifications:
     - target: {fileID: 5885164731537088945, guid: 702c5a9186950422bac2f3e7c52d982a, type: 3}
+      propertyPath: _maxWordTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885164731537088945, guid: 702c5a9186950422bac2f3e7c52d982a, type: 3}
       propertyPath: _delayPerWordCurve.m_Curve.Array.data[0].time
       value: -0.012533697
       objectReference: {fileID: 0}

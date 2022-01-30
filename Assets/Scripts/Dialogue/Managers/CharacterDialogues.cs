@@ -40,8 +40,11 @@ public class CharacterDialogues
             Debug.LogError("No Dialogue found for " + name);
             return;
         }
-        var dialogue = AllCharacters[name];
-        CurrentPassengers.Add(name, dialogue);
+        if (!CurrentPassengers.ContainsKey(name))
+        {
+            var dialogue = AllCharacters[name];
+            CurrentPassengers.Add(name, dialogue);
+        }
     }
 
     private void RemovePassenger(string name)

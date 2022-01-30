@@ -13,6 +13,7 @@ public class TrackGenerator : MonoBehaviour
 	public static Action<string> OnNextToPassenger;
 	public static float ProgressToFerry { get; private set; }
 	public static Func<float> NormalizedSpeed;
+	public static Func<float> DistanceToNextPassenger;
 
 	[SerializeField] private GameSettings _settings;
 	[SerializeField] private float _segmentLength;
@@ -66,6 +67,8 @@ public class TrackGenerator : MonoBehaviour
 			}
 			return _carSpeed / _standardCarSpeed;
 		};
+
+		DistanceToNextPassenger = GetDistanceToNextPassenger;
 	}
 
 	void ResetGame()
@@ -149,6 +152,22 @@ public class TrackGenerator : MonoBehaviour
 			break;
 		}
 	}
+
+	private float GetDistanceToNextPassenger()
+	{
+		Transform nextPassenger;
+		for (int i = 0; i < _passengers.Count; i++)
+		{
+			var passenger = _passengers[i];
+			if (passenger.position.z < _car.transform.position.z)
+			{
+				continue;
+			}
+			return passenger.transform.position.z - _car.position.z;
+		}
+		return 0f;
+	}
+
 
 	private void CheckForIsNextToPassenger()
 	{

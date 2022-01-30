@@ -15,15 +15,35 @@ MonoBehaviour:
   CharacterName: Salima
   HitchhikeDialogue:
   - CharacterName: Salima
-    Message: I'm Salima
+    Message: Oh quel miracle, thank you!
+    MessageBoxType: 0
+  - CharacterName: Salima
+    Message: English not good.... You, bateau? Water?
+    MessageBoxType: 0
+  - CharacterName: Salima
+    Message: Please can I.. come car? I go... retourne a ma pais... home.
+    MessageBoxType: 0
+  - CharacterName: Salima
+    Message: Ma Famille, they wait me there. I want home.
     MessageBoxType: 0
   EnterCarDialogue:
   - CharacterName: Salima
-    Message: Salima Salima
+    Message: Merci, merci, merci! Thank kind you.
+    MessageBoxType: 0
+  - CharacterName: Salima
+    Message: You good person... You save us now, je prie pour nous tous.
     MessageBoxType: 0
   InCarDialogues: []
   StoppingDialogues: []
   LeaveCarDialogue:
   - CharacterName: Salima
-    Message: Cya
+    Message: Non, attendez! Wait Me!
     MessageBoxType: 2
+  - CharacterName: 
+    Message: You feel guilt come over you in the realisation that they are at a true
+      disadvantage...
+    MessageBoxType: 3
+  - CharacterName: 
+    Message: They might never make it to safety in time, forever lost to foreign
+      land.
+    MessageBoxType: 3

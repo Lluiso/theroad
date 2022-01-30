@@ -15,18 +15,61 @@ MonoBehaviour:
   CharacterName: Rosie
   HitchhikeDialogue:
   - CharacterName: Rosie
-    Message: I'm Rosie
+    Message: Uhm... 'cuse me...
+    MessageBoxType: 0
+  - CharacterName: Rosie
+    Message: I 'nk I'm lost... I ran.. Away...
+    MessageBoxType: 0
+  - CharacterName: Rosie
+    Message: They 'ere so mean... *sniff* I can't stay there no more....
+    MessageBoxType: 0
+  - CharacterName: Rosie
+    Message: Pwease, can you 'elp me? *sniff*
     MessageBoxType: 0
   EnterCarDialogue:
   - CharacterName: Rosie
-    Message: Rosie's here
+    Message: '*sniff* ''nk u...'
     MessageBoxType: 0
-  InCarDialogues: []
-  StoppingDialogues: []
-  LeaveCarDialogue:
   - CharacterName: Rosie
-    Message: aww
+    Message: 'It''s nice ''n... Warm now. '
     MessageBoxType: 0
+  InCarDialogues:
+  - Dialogue:
+    - CharacterName: Rosie
+      Message: '*snif* I won''t come bak!'
+      MessageBoxType: 0
+    - CharacterName: Peter
+      Message: We are all on this journey together sweet child, god will keep us
+        safe.
+      MessageBoxType: 0
+    - CharacterName: Rosie
+      Message: NO! I WON'T GO!
+      MessageBoxType: 2
+    Conditions:
+      PassengerCount: -1
+      CharactersInCar:
+      - Peter
+    Choices:
+    - Resolution: 3
+      Context: Rosie
+    - Resolution: 3
+      Context: Peter
+    - Resolution: 0
+      Context: 
+  StoppingDialogues:
+  - Dialogue:
+    - CharacterName: Rosie
+      Message: Bad man.. Don't 'top please...
+      MessageBoxType: 0
+    Conditions:
+      CharacterBeingPickedUp:
+      - Peter
+  LeaveCarDialogue:
   - CharacterName: 
-    Message: As you pull away, you see rosie start to cry.
+    Message: As you drive off you hear a soft thump as the little girl falls to her
+      knees.
+    MessageBoxType: 3
+  - CharacterName: 
+    Message: The heartbreaking sound of her snivelling and sobbing slowly fades into
+      the distance.
     MessageBoxType: 3

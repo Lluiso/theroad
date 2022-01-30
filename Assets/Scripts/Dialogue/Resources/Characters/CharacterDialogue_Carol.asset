@@ -15,57 +15,66 @@ MonoBehaviour:
   CharacterName: Carol
   HitchhikeDialogue:
   - CharacterName: Carol
-    Message: Please will you let me in
+    Message: Oh sweet sweet heavens, thank you for stopping.
     MessageBoxType: 0
   - CharacterName: Carol
-    Message: My husband of 63 years is waiting for me
+    Message: I can't make it much further on these rusty ol' kneecaps of mine.
     MessageBoxType: 0
   - CharacterName: Carol
-    Message: I don't wanna die all alone out here
+    Message: All I've ever wanted to go out and see the world.
+    MessageBoxType: 0
+  - CharacterName: Carol
+    Message: Please take me with you so I can finally have that chance, oh I'm so
+      afraid...
     MessageBoxType: 0
   EnterCarDialogue:
   - CharacterName: Carol
-    Message: Step on it
+    Message: Oh my oh my, bless you dear.
+    MessageBoxType: 0
+  - CharacterName: Carol
+    Message: Thank you for giving me hope in these dour times, please god get us
+      to safety.
     MessageBoxType: 0
   InCarDialogues:
   - Dialogue:
     - CharacterName: Carol
-      Message: Im being crushed!
+      Message: How long are you here for?
+      MessageBoxType: 0
+    - CharacterName: Salima
+      Message: I live here 2 years
+      MessageBoxType: 0
+    - CharacterName: Carol
+      Message: Say, I wouldn't think it takes that long to learn English.
       MessageBoxType: 0
     Conditions:
-      PassengerCount: 4
-      CharactersInCar: []
-    Choices: []
+      PassengerCount: -1
+      CharactersInCar:
+      - Salima
+    Choices:
+    - Resolution: 3
+      Context: Salima
+    - Resolution: 3
+      Context: Carol
+    - Resolution: 0
+      Context: 
   StoppingDialogues:
   - Dialogue:
     - CharacterName: Carol
-      Message: Poor thing, out all alone, where are her paents
+      Message: Oh dear, I wouldn't trust her sorts...
       MessageBoxType: 0
     Conditions:
       CharacterBeingPickedUp:
-      - Rosie
-  - Dialogue:
-    - CharacterName: Carol
-      Message: He Looks like a lovely man
-      MessageBoxType: 0
-    Conditions:
-      CharacterBeingPickedUp:
-      - Harvey
-  - Dialogue:
-    - CharacterName: Carol
-      Message: I do like a handyman
-      MessageBoxType: 0
-    Conditions:
-      CharacterBeingPickedUp:
-      - Chuck
-  - Dialogue:
-    - CharacterName: Carol
-      Message: I think it's probably best to stop...
-      MessageBoxType: 0
-    Conditions:
-      CharacterBeingPickedUp:
-      - Peter
+      - Salima
   LeaveCarDialogue:
   - CharacterName: Carol
-    Message: This would never happen back in my day!
-    MessageBoxType: 2
+    Message: Please, wait!
+    MessageBoxType: 0
+  - CharacterName: Carol
+    Message: The old lady tries to run after the car as you speed off.
+    MessageBoxType: 3
+  - CharacterName: Carol
+    Message: You look in your rear view mirror and see fall.
+    MessageBoxType: 3
+  - CharacterName: Carol
+    Message: She does not get back up.
+    MessageBoxType: 3
