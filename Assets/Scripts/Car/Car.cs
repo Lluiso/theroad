@@ -16,11 +16,21 @@ public class Car : MonoBehaviour
 
         CarEvents.AddPassenger = AddPassenger;
         CarEvents.RemovePassenger = RemovePassenger;
+
+        TrackGenerator.OnPassengerApproaching += GoToHitchhikeMode;
     }
 
     public void GoToHitchhikeMode(string passengerToPickUp)
     {
         CarEvents.Passenger.SlowingToPickUp?.Invoke(passengerToPickUp);
+        // TODO add player choice
+        StartCoroutine(WaitToStop(passengerToPickUp));
+    }
+
+    private IEnumerator WaitToStop(string passengerToPickUp)
+    {
+        yield return new WaitForSeconds(1f);
+        StopAtPassenger(passengerToPickUp);
     }
 
     public void StopAtPassenger(string passengerToPickUp)

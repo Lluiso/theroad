@@ -128,7 +128,7 @@ public class UI_DialogueDisplay : MonoBehaviour
         }
         else
         {
-            StartCoroutine(CleanUp());
+            ClearMessages();
         }
     }
 
@@ -198,21 +198,7 @@ public class UI_DialogueDisplay : MonoBehaviour
             var context = _context[index];
             call?.Invoke(context);
         }
-        else
-        {
-            StartCoroutine(CleanUp(0f));
-        }
         Time.timeScale = 1f;
         CarEvents.EndInteraction?.Invoke();
-    }
-
-
-    private IEnumerator CleanUp(float delay = 0.5f)
-    {
-        if (delay > 0f)
-        {
-            yield return new WaitForSeconds(delay);
-        }
-        ClearMessages();
     }
 }

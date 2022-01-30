@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894bcbd8e2d0c41f78446c3414af8ab5, type: 3}
+  m_Name: _CharacterDialogue_Steve
+  m_EditorClassIdentifier: 
+  CharacterName: Steve
+  HitchhikeDialogue:
+  - CharacterName: Steve
+    Message: Help Me!
+    MessageBoxType: 0
+  - CharacterName: Steve
+    Message: I'm trying to find my friends
+    MessageBoxType: 0
+  EnterCarDialogue:
+  - CharacterName: Steve
+    Message: You're My saviour, i'm gonna tell my kids about you for years to come!
+    MessageBoxType: 0
+  InCarDialogues:
+  - Dialogue:
+    - CharacterName: Steve
+      Message: Kevin, your mum is a slag
+      MessageBoxType: 0
+    - CharacterName: Kevin
+      Message: Fuck you Steve
+      MessageBoxType: 2
+    - CharacterName: Steve
+      Message: ikr
+      MessageBoxType: 1
+    Conditions:
+      PassengerCount: -1
+      CharactersInCar:
+      - Kevin
+    Choices:
+    - Resolution: 3
+      Context: Steve
+    - Resolution: 3
+      Context: Kevin
+    - Resolution: 0
+      Context: 
+  StoppingDialogues:
+  - Dialogue:
+    - CharacterName: Steve
+      Message: Oh not him...
+      MessageBoxType: 0
+    Conditions:
+      CharacterBeingPickedUp:
+      - Kevin
+  LeaveCarDialogue:
+  - CharacterName: Steve
+    Message: I hope your kids get orphaned!
+    MessageBoxType: 0

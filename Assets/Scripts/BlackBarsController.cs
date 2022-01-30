@@ -54,7 +54,7 @@ public class BlackBarsController : MonoBehaviour
     [Button]
     public void showBars()
     {
-        UICanvas.DOFade(0f, animationDuration * 0.5f);
+        UICanvas.DOFade(0.2f, animationDuration * 0.5f);
         topBar.DOLocalMoveY(-height, animationDuration).SetRelative();
         bottomBar.DOLocalMoveY(height, animationDuration).SetRelative();
     }

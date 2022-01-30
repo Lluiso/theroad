@@ -21,12 +21,12 @@ MonoBehaviour:
   - 0.7
   - 0.8
   PassengerNames:
-  - carol
-  - rosie
-  - salima
-  - harvey
-  - chuck
-  - peter
+  - Carol
+  - Rosie
+  - Salima
+  - Harvey
+  - Chuck
+  - Peter
   DistanceToAlertApproachingCharacter: 100
   _startingDistanceToFerryMeters: 5000
   _vegetationPlaneMargin: 0.05
