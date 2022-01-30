@@ -35,6 +35,8 @@ public class UI_DialogueDisplay : MonoBehaviour
     private void Awake()
     {
         DialogueController.ShowDialogue += ShowDialogue;
+        // clear the screen when showing dilemma
+        CarEvents.ShowDilemma += (a, b) => ClearMessages();
     }
 
     private void ShowDialogue(Dialogue dialogue, DialogueEvents.Choice[] choices)
@@ -200,6 +202,11 @@ public class UI_DialogueDisplay : MonoBehaviour
 
     private void OnButtonPress(Action<string> call, int index)
     {
+        if (_decisionMade)
+        {
+            return;
+        }
+        _decisionMade = true;
         Debug.Log(index);
         if (call != null && _context.ContainsKey(index))
         {

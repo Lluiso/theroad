@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public static class CarEvents 
 {
@@ -20,6 +21,9 @@ public static class CarEvents
         // todo not picked up 
         public static Action<string> LeftBehind;
     }
+
+    public static Action<List<string>, List<string>> ShowDilemma;
+    public static Action<List<string>, List<string>> MovingOff;
 
     // Check for dialogue between passengers/angel&Devil
     public static Action CheckForInCarDialogue;

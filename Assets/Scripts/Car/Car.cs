@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,18 +15,41 @@ public class Car : MonoBehaviour
         // lazy exposing of max :)
         MaxPassengers = _maxPassengers;
 
-        CarEvents.AddPassenger = AddPassenger;
+        CarEvents.AddPassenger = SetupDilemma;
         CarEvents.RemovePassenger = RemovePassenger;
-        // hack - get things moving
-        GameEvents.StartGame += CarEvents.EndInteraction;
+        GameEvents.StartGame += OnGameStarted;
+
+        CarEvents.MovingOff += ProcessPassengers;
 
         TrackGenerator.OnPassengerApproaching += GoToHitchhikeMode;
     }
 
-    //private void Start()
-    //{
-    //    CarEvents.EndInteraction?.Invoke();
-    //}
+
+    private void SetupDilemma(string newPassenger)
+    {
+        var newPass = new List<string>() { newPassenger };
+        CarEvents.ShowDilemma(Passengers, newPass);
+    }
+
+    private void ProcessPassengers(List<string> inCarPassengers, List<string> outCarPassengers)
+    {
+        foreach(var p in inCarPassengers)
+        {
+            AddPassenger(p);
+        }
+        foreach (var p in outCarPassengers)
+        {
+            RemovePassenger(p);
+        }
+        CarEvents.EndInteraction?.Invoke();
+    }
+
+    private void OnGameStarted()
+    {
+        // hack - get things moving
+        CarEvents.EndInteraction?.Invoke();
+    }
+
 
     public void GoToHitchhikeMode(string passengerToPickUp)
     {
@@ -45,9 +69,11 @@ public class Car : MonoBehaviour
         {
             return;
         }
-        Passengers.Add(name);
-        CarEvents.Passenger.Entered?.Invoke(name);
-        CarEvents.EndInteraction?.Invoke();
+        if (!Passengers.Contains(name))
+        {
+            Passengers.Add(name);
+            CarEvents.Passenger.Entered?.Invoke(name);
+        }
     }
 
     private void RemovePassenger(string name)

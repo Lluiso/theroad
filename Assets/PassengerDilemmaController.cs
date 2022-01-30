@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -22,11 +23,15 @@ public class PassengerDilemmaController : MonoBehaviour
 
     private List<GameObject> passengers;
 
+    private void Awake()
+    {
+        screen.SetActive(false);
+        CarEvents.ShowDilemma += SetPassengers;
+    }
+
     [Button]
     public void testPassengers()
     {
-
-
         SetPassengers(new List<string> { "Harvey", "Salima" }, new List<string> { "Chuck" });
     }
 
@@ -54,17 +59,15 @@ public class PassengerDilemmaController : MonoBehaviour
 
     public void confirmPressed()
     {
-        List<string> insideCarPassengers = new List<string>();
-        foreach (var passenger in passengers)
-        {
-            if (passenger.GetComponent<Passenger>().isInsideCar)
-            {
+        var Ps = passengers.Select(p => p.GetComponent<Passenger>());
+        var inCarPassengers = Ps.Where(p => p.isInsideCar).Select(p => p._name).ToList();
+        var outCarPassengers = Ps.Where(p => !p.isInsideCar).Select(p => p._name).ToList();
 
-                insideCarPassengers.Add(passenger.GetComponent<Passenger>()._name);
-            }
-        }
-
+        CarEvents.MovingOff?.Invoke(inCarPassengers, outCarPassengers);
         //return list somewhere
+        for (var i=0; i<passengers.Count; i++) {
+            Destroy(passengers[i].gameObject);
+        }
         screen.SetActive(false);
     }
 
