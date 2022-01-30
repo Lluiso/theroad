@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class WeatherController : MonoBehaviour
 {
 	[SerializeField] private GameSettings _settings;
-	[SerializeField] private Camera _mainCam;
+	private Camera _mainCam;
 	[SerializeField] private GameObject _thunderPrefab;
 
 	[SerializeField] private AudioSource _thunderSounds;
@@ -28,6 +28,11 @@ public class WeatherController : MonoBehaviour
 
 	private float shakeDurationRemaining;
 	Vector3 cameraStartPos;
+
+	private void Awake()
+	{
+		_mainCam = Camera.main;
+	}
 
 	private void Update()
 	{
