@@ -15,15 +15,56 @@ MonoBehaviour:
   CharacterName: Harvey
   HitchhikeDialogue:
   - CharacterName: Harvey
-    Message: Im Harvey, let me in biatch
+    Message: Finally someone that pulls over, the audacity of some of these common
+      folk, unbelievable.
+    MessageBoxType: 0
+  - CharacterName: Harvey
+    Message: I'll tell you what, get me to that ferry in time and I'll pay you more
+      than you'll earn in your lifetime.
+    MessageBoxType: 0
+  - CharacterName: Harvey
+    Message: I'll set you up for life and you'll save mine, sounds like a fair deal.
+    MessageBoxType: 0
+  - CharacterName: Harvey
+    Message: What do you say? Let's be sensible about this.
     MessageBoxType: 0
   EnterCarDialogue:
   - CharacterName: Harvey
-    Message: It's about time
+    Message: That's right, you'd be a fool to let up on that offer in financial times
+      like these!
     MessageBoxType: 0
-  InCarDialogues: []
-  StoppingDialogues: []
+  - CharacterName: Harvey
+    Message: Now chop chop, time is money!
+    MessageBoxType: 0
+  InCarDialogues:
+  - Dialogue:
+    - CharacterName: Harvey
+      Message: Christ, blow your nose already you little brat!
+      MessageBoxType: 2
+    - CharacterName: Rosie
+      Message: '*snif*'
+      MessageBoxType: 0
+    - CharacterName: Harvey
+      Message: If you're going to cry do it out there, we don't need a second flooding.
+      MessageBoxType: 2
+    Conditions:
+      PassengerCount: -1
+      CharactersInCar:
+      - Rosie
+    Choices: []
+  StoppingDialogues:
+  - Dialogue:
+    - CharacterName: Harvey
+      Message: Don't be a ridiculous, we're better off without the yapping of a little
+        girl.
+      MessageBoxType: 0
+    Conditions:
+      CharacterBeingPickedUp:
+      - Rosie
   LeaveCarDialogue:
   - CharacterName: Harvey
-    Message: Fuck You!
-    MessageBoxType: 2
+    Message: All right drive off then your poor bastard. Your loss!
+    MessageBoxType: 0
+  - CharacterName: Harvey
+    Message: You'll regret this when your pension runs out!
+    MessageBoxType: 3

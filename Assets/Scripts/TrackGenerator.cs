@@ -13,6 +13,7 @@ public class TrackGenerator : MonoBehaviour
 	public static Action<string> OnNextToPassenger;
 	public static float ProgressToFerry { get; private set; }
 	public static Func<float> NormalizedSpeed;
+	public static Func<float> DistanceToNextPassenger;
 
 	[SerializeField] private GameSettings _settings;
 	[SerializeField] private float _segmentLength;
@@ -28,6 +29,7 @@ public class TrackGenerator : MonoBehaviour
 	[SerializeField] private float _lightX;
 	[SerializeField] private bool _generateOnAwake = true;
 	[SerializeField] private List<Transform> _passengers = new List<Transform>();
+	private List<Transform> _spawnedSegments = new List<Transform>();
 	private int _numberOfSectionsToGenerate;
 	private Transform _roadSegmentsParent;
 	private float distanceCovered = 0f;
@@ -65,6 +67,8 @@ public class TrackGenerator : MonoBehaviour
 			}
 			return _carSpeed / _standardCarSpeed;
 		};
+
+		DistanceToNextPassenger = GetDistanceToNextPassenger;
 	}
 
 	void ResetGame()
@@ -122,6 +126,7 @@ public class TrackGenerator : MonoBehaviour
 		MoveTrack();
 		CheckForApproachingPassenger();
 		CheckForIsNextToPassenger();
+		CheckForObjectVisibility();
 	}
 
 	private void CheckForApproachingPassenger()
@@ -147,6 +152,22 @@ public class TrackGenerator : MonoBehaviour
 			break;
 		}
 	}
+
+	private float GetDistanceToNextPassenger()
+	{
+		Transform nextPassenger;
+		for (int i = 0; i < _passengers.Count; i++)
+		{
+			var passenger = _passengers[i];
+			if (passenger.position.z < _car.transform.position.z)
+			{
+				continue;
+			}
+			return passenger.transform.position.z - _car.position.z;
+		}
+		return 0f;
+	}
+
 
 	private void CheckForIsNextToPassenger()
 	{
@@ -187,6 +208,26 @@ public class TrackGenerator : MonoBehaviour
 		SpawnRoadSigns();
 		SpawnLights();
 		SpawnPassengers();
+	}
+
+	void CheckForObjectVisibility()
+	{
+		foreach (var segment in _spawnedSegments)
+		{
+			var distanceFromCar = segment.position.z - _car.position.z;
+			segment.gameObject.name = distanceFromCar.ToString();
+			if (segment.position.z < (_segmentLength * -2f))
+			{
+				segment.gameObject.name += "(behind car)";
+				segment.gameObject.SetActive(false);
+			}
+			else
+			{
+				var isInVisibleRange = segment.position.z - _car.position.z < _visibleLength;
+				segment.gameObject.name += $" isvisible: {isInVisibleRange}";
+				segment.gameObject.SetActive(isInVisibleRange);
+			}
+		}
 	}
 
 	void SpawnPassengers()
@@ -259,6 +300,7 @@ public class TrackGenerator : MonoBehaviour
 			newRoadPiece.name = $"Road section {i}";
 			newRoadPiece.transform.position = newSpawnPos;
 			newRoadPiece.transform.parent = _roadSegmentsParent;
+			_spawnedSegments.Add(newRoadPiece.transform);
 		}
 	}
 

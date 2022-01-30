@@ -15,15 +15,51 @@ MonoBehaviour:
   CharacterName: Chuck
   HitchhikeDialogue:
   - CharacterName: Chuck
-    Message: I'm Chuck
+    Message: Evening partner! Thanks for stopping by.
+    MessageBoxType: 0
+  - CharacterName: Chuck
+    Message: I don't believe in all this horsesh*t about the CO's and the 2s they're
+      blabbering about
+    MessageBoxType: 0
+  - CharacterName: Chuck
+    Message: But this storm sure is looking like a doozy and I'd feel much better
+      on that boat.
+    MessageBoxType: 0
+  - CharacterName: Chuck
+    Message: Whaddya say I hitch a ride? I'm handy with repairs and got a few supplies!
     MessageBoxType: 0
   EnterCarDialogue:
   - CharacterName: Chuck
-    Message: ayy
+    Message: Aces, you're all right by me!
     MessageBoxType: 0
-  InCarDialogues: []
-  StoppingDialogues: []
+  InCarDialogues:
+  - Dialogue:
+    - CharacterName: Chuck
+      Message: Self-made or inherited?
+      MessageBoxType: 0
+    - CharacterName: Harvey
+      Message: Self-made, after a small loan from my folks.
+      MessageBoxType: 0
+    - CharacterName: Chuck
+      Message: I could tell you've never had to work a day in your life you leech.
+      MessageBoxType: 0
+    Conditions:
+      PassengerCount: -1
+      CharactersInCar:
+      - Harvey
+    Choices: []
+  StoppingDialogues:
+  - Dialogue:
+    - CharacterName: Chuck
+      Message: He looks like he'd be off well enough without us.
+      MessageBoxType: 0
+    Conditions:
+      CharacterBeingPickedUp:
+      - Harvey
   LeaveCarDialogue:
   - CharacterName: Chuck
-    Message: I hate you!
+    Message: 'It is people life you that have ruined this country! '
+    MessageBoxType: 2
+  - CharacterName: Churck
+    Message: Get out of here, good riddance!
     MessageBoxType: 2
